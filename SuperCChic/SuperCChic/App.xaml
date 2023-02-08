@@ -1,0 +1,15 @@
+﻿<Application x:Class="SGI.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:SGI"
+             xmlns:views="clr-namespace:SGI.Views"
+             xmlns:viewmodels="clr-namespace:SGI.ViewModels">
+    <Application.Resources>
+        <DataTemplate DataType="{x:Type viewmodels:SGIViewModel}">
+            <views:SGIControl/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:AddModifyViewModel}">
+            <views:AddEditControl/>
+        </DataTemplate>
+    </Application.Resources>
+</Application>
