@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SGI", "SuperCChic\SGI.csproj", "{40B35F2B-D0BC-44FA-A231-E805E60F7139}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend", "Backend\Backend.csproj", "{FE3B9FBF-765E-4DF6-857F-EBD318271697}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend", "Backend\Backend.csproj", "{FE3B9FBF-765E-4DF6-857F-EBD318271697}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caisse", "Caisse\Caisse.csproj", "{D1FACCD2-D7EA-4692-8BF5-CFA13BDD5BE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caisse", "Caisse\Caisse.csproj", "{D1FACCD2-D7EA-4692-8BF5-CFA13BDD5BE8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SGI", "SGI\SGI.csproj", "{B17F97DB-1482-407D-82C0-B92EF41016BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{40B35F2B-D0BC-44FA-A231-E805E60F7139}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{40B35F2B-D0BC-44FA-A231-E805E60F7139}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{40B35F2B-D0BC-44FA-A231-E805E60F7139}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{40B35F2B-D0BC-44FA-A231-E805E60F7139}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FE3B9FBF-765E-4DF6-857F-EBD318271697}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FE3B9FBF-765E-4DF6-857F-EBD318271697}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE3B9FBF-765E-4DF6-857F-EBD318271697}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -27,6 +23,10 @@ Global
 		{D1FACCD2-D7EA-4692-8BF5-CFA13BDD5BE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1FACCD2-D7EA-4692-8BF5-CFA13BDD5BE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1FACCD2-D7EA-4692-8BF5-CFA13BDD5BE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B17F97DB-1482-407D-82C0-B92EF41016BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B17F97DB-1482-407D-82C0-B92EF41016BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B17F97DB-1482-407D-82C0-B92EF41016BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B17F97DB-1482-407D-82C0-B92EF41016BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

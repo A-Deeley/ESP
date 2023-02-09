@@ -117,16 +117,69 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Add_CreateAndContinue_Btn" xml:space="preserve">
+    <value>Create and continue</value>
+  </data>
+  <data name="Add_CreateAndQuit_Btn" xml:space="preserve">
+    <value>Create and quit</value>
+  </data>
+  <data name="Add_Labels_CUP" xml:space="preserve">
+    <value>Universal Product Code (UPC):</value>
+  </data>
+  <data name="Add_Labels_Discounts" xml:space="preserve">
+    <value>Discount</value>
+  </data>
+  <data name="Add_Labels_PriceQty" xml:space="preserve">
+    <value>Price &amp; Qty</value>
+  </data>
+  <data name="Add_Labels_ProductName" xml:space="preserve">
+    <value>Product name:</value>
+  </data>
+  <data name="Add_Labels_ProductUnit" xml:space="preserve">
+    <value>Quantity type:</value>
+  </data>
+  <data name="Add_Labels_Taxes" xml:space="preserve">
+    <value>Taxes</value>
+  </data>
+  <data name="Add_Previous_Btn" xml:space="preserve">
+    <value>Back to list</value>
+  </data>
+  <data name="Add_Reset_Btn" xml:space="preserve">
+    <value>Reset Values</value>
+  </data>
   <data name="Add_Title" xml:space="preserve">
     <value>Add a new product</value>
     <comment>Title for add product user control.</comment>
+  </data>
+  <data name="Add_Titles_ProductInfo" xml:space="preserve">
+    <value>Product Info</value>
+  </data>
+  <data name="Add_Titles_SalesInfo" xml:space="preserve">
+    <value>Pricing</value>
   </data>
   <data name="Edit_Title" xml:space="preserve">
     <value>Editing an existing product...</value>
     <comment>Title for edit product user control.</comment>
   </data>
+  <data name="List_Quit_App" xml:space="preserve">
+    <value>Quit</value>
+  </data>
   <data name="List_Title" xml:space="preserve">
     <value>SuperCChic Product Management</value>
     <comment>Title for list of products user control.</comment>
+  </data>
+  <data name="Section_Action_Add" xml:space="preserve">
+    <value>Add</value>
+    <comment>Text for add product button in list control.</comment>
+  </data>
+  <data name="Section_Action_Delete" xml:space="preserve">
+    <value>Delete</value>
+    <comment>Text for delete product button in list control.</comment>
+  </data>
+  <data name="Section_Action_Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Section_Action_Title" xml:space="preserve">
+    <value>Actions</value>
   </data>
 </root>

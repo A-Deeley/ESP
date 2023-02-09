@@ -1,0 +1,98 @@
+﻿<UserControl x:Class="SGI.Views.AddEditControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:resx="clr-namespace:SGI.Properties"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             xmlns:local="clr-namespace:SGI.ViewModels"
+             d:DataContext="{d:DesignInstance local:AddModifyViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="600">
+    <UserControl.Resources>
+        <!--#region Title Styles-->
+        <Style x:Key="Title" TargetType="Label">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="5 0 0 0"/>
+        </Style>
+        <!--#endregion-->
+        <!--#region Input Box Styles-->
+        <Style x:Key="InputText" TargetType="TextBox">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <!--#endregion-->
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <!--#region toprow-->
+        <Button Grid.Column="0" Grid.Row="0" Margin="5" Command="{Binding Previous}">
+            <StackPanel Orientation="Horizontal">
+                <fa:FontAwesome Icon="ArrowLeft" VerticalAlignment="Center"/>
+                <TextBlock Text="{x:Static resx:Resources.Add_Previous_Btn}" Margin="2 0 0 0"/>
+            </StackPanel>
+        </Button>
+        <!--#endregion-->
+        <!--#region productinfos-->
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
+            <Label Style="{StaticResource Title}" Content="{x:Static resx:Resources.Add_Titles_ProductInfo}"/>
+            <Separator BorderBrush="Black" BorderThickness="8"/>
+            <Grid>
+                <!--#region Col & Row definitions-->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!--#endregion-->
+                <!--#region row cup-->
+                <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" Content="{x:Static resx:Resources.Add_Labels_CUP}"/>
+                <TextBox Grid.Column="1" Grid.Row="0" Style="{StaticResource InputText}"/>
+                <!--#endregion-->
+                <!--#region row name-->
+                <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" Content="{x:Static resx:Resources.Add_Labels_ProductName}"/>
+                <TextBox Grid.Column="1" Grid.Row="1" Style="{StaticResource InputText}"/>
+                <!--#endregion-->
+                <!--#region row type-->
+                <Label Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" Content="{x:Static resx:Resources.Add_Labels_ProductUnit}"/>
+                <TextBox Grid.Column="1" Grid.Row="2" Style="{StaticResource InputText}"/>
+                <!--#endregion-->
+            </Grid>
+        </StackPanel>
+        <!--#endregion-->
+        <!--#region saleinfo-->
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
+            <Label Style="{StaticResource Title}" Content="{x:Static resx:Resources.Add_Titles_SalesInfo}"/>
+            <Separator BorderBrush="Black" BorderThickness="8"/>
+            <Grid>
+            </Grid>
+        </StackPanel>
+        <!--#endregion-->
+        <!--#region bottomrow-->
+        <Button Grid.Column="0" Grid.Row="3" Margin="5" Background="Red">
+            <StackPanel Orientation="Horizontal">
+                <fa:FontAwesome Icon="RotateLeft" VerticalAlignment="Center"/>
+                <TextBlock Text="{x:Static resx:Resources.Add_Reset_Btn}" Margin="2 0 0 0"/>
+            </StackPanel>
+        </Button>
+        <WrapPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal" FlowDirection="RightToLeft">
+            <Button Style="{StaticResource ActionBtn}" Content="{x:Static resx:Resources.Add_CreateAndQuit_Btn}" Background="Yellow"/>
+            <Button Style="{StaticResource ActionBtn}" Content="{x:Static resx:Resources.Add_CreateAndContinue_Btn}" Background="Green"/>
+        </WrapPanel>
+        <!--#endregion-->
+    </Grid>
+</UserControl>

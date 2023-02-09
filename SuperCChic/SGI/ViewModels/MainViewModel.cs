@@ -57,6 +57,7 @@ public class MainViewModel : BaseViewModel
         {
             case "add":
                 CurrentPageViewModel = new AddModifyViewModel();
+                CurrentPageViewModel.ViewChanged += OnViewChanged;
                 Title = CurrentPageViewModel.Title;
                 break;
 
@@ -65,6 +66,7 @@ public class MainViewModel : BaseViewModel
                     goto default;
 
                 CurrentPageViewModel = new AddModifyViewModel(e.Model);
+                CurrentPageViewModel.ViewChanged += OnViewChanged;
                 Title = CurrentPageViewModel.Title;
                 break;
 
@@ -77,8 +79,6 @@ public class MainViewModel : BaseViewModel
                 break;
 
         }
-        CurrentPageViewModel = _pageViewModels[e.Value];
-        Title = CurrentPageViewModel.Title;
     }
     #endregion
 }

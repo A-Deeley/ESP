@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="SGI.Views.SGIControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SGI.ViewModels"
+             xmlns:resx="clr-namespace:SGI.Properties"
+             d:DataContext="{d:DesignInstance Type=local:SGIViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="600">
+    <UserControl.Resources>
+        <!--#region Title Styles-->
+        <Style x:Key="Title" TargetType="Label">
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <!--#endregion-->
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <!--#region List Area (left)-->
+        <DataGrid Margin="2" ItemsSource="{Binding CurrentPageProducts}" SelectedItem="{Binding SelectedProduct}" CanUserAddRows="False" CanUserDeleteRows="False" AlternatingRowBackground="#FFABABAB" AlternationCount="1" IsReadOnly="True"/>
+
+        <!--#endregion-->
+        <!--#region Filters & Buttons Area (right)-->
+        <StackPanel Grid.Column="1" MinWidth="165">
+            <Label Style="{StaticResource Title}"  HorizontalAlignment="Center" Content="{x:Static resx:Resources.Section_Action_Title}"/>
+            <Separator BorderBrush="Black"/>
+            <Button Style="{StaticResource ActionBtn}" HorizontalAlignment="Stretch" Command="{Binding AddProduct}" Content="{x:Static resx:Resources.Section_Action_Add}"/>
+            <WrapPanel>
+                <Button Style="{StaticResource ActionBtn}" Command="{Binding EditProduct}" Content="{x:Static resx:Resources.Section_Action_Edit}"/>
+                <Button Style="{StaticResource ActionBtn}" Command="{Binding DeleteProduct}" Content="{x:Static resx:Resources.Section_Action_Delete}"/>
+            </WrapPanel>
+        </StackPanel>
+        <!--#endregion-->
+        <Button Grid.Column="1" Grid.Row="1" Margin="5" Content="{x:Static resx:Resources.List_Quit_App}" Click="Quit_Button_Click"/>
+    </Grid>
+</UserControl>

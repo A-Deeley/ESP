@@ -7,7 +7,7 @@
         xmlns:viewmodels="clr-namespace:SGI.ViewModels"
         d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         mc:Ignorable="d"
-        Title="{Binding Title}" Height="450" Width="800">
+        Title="{Binding Title}" MinHeight="450" MinWidth="600" SizeToContent="WidthAndHeight">
     <Grid>
         <ContentControl Content="{Binding CurrentPageViewModel}"/>
     </Grid>

@@ -14,5 +14,5 @@ public class DeleteViewModel : BaseViewModel, IPageViewModel
     public string PageId { get; set; }
     public string Title { get; set; }
 
-    public event EventHandler<EventArgs<string>>? ViewChanged;
+    public event EventHandler<SGIEventArgs>? ViewChanged;
 }

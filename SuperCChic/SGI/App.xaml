@@ -5,11 +5,25 @@
              xmlns:views="clr-namespace:SGI.Views"
              xmlns:viewmodels="clr-namespace:SGI.ViewModels">
     <Application.Resources>
+        
+        <!--#region DataTemplates-->
         <DataTemplate DataType="{x:Type viewmodels:SGIViewModel}">
             <views:SGIControl/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewmodels:AddModifyViewModel}">
             <views:AddEditControl/>
         </DataTemplate>
+        <!--#endregion-->
+        
+        <!--#region Styles-->
+        <!--#region Button-->
+        <Style x:Key="ActionBtn" TargetType="Button">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="MinWidth" Value="80"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <!--#endregion-->
+        <!--#endregion-->
     </Application.Resources>
 </Application>

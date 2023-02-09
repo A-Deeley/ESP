@@ -28,4 +28,10 @@ public partial class Product
     public ulong DiscountType { get; set; }
 
     public float? DiscountAmt { get; set; }
+
+    public virtual Company? Company { get; set; }
+
+    public virtual Department? Department { get; set; }
+
+    public virtual ICollection<TransactionRow> TransactionRows { get; } = new List<TransactionRow>();
 }

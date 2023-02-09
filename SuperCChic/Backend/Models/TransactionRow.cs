@@ -20,4 +20,8 @@ public partial class TransactionRow
     public float? TvqUnit { get; set; }
 
     public float? QtyUnit { get; set; }
+
+    public virtual Product? Product { get; set; }
+
+    public virtual Transaction? Transaction { get; set; }
 }

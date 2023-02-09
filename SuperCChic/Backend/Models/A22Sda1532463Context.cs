@@ -65,7 +65,11 @@ public partial class A22Sda1532463Context : DbContext
 
             entity.ToTable("products");
 
+            entity.HasIndex(e => e.CompanyId, "company_id");
+
             entity.HasIndex(e => e.Cup, "cup").IsUnique();
+
+            entity.HasIndex(e => e.DepartmentId, "department_id");
 
             entity.HasIndex(e => e.Name, "name").IsUnique();
 
@@ -105,6 +109,14 @@ public partial class A22Sda1532463Context : DbContext
                 .HasMaxLength(50)
                 .HasDefaultValueSql("'unit'")
                 .HasColumnName("unit_type");
+
+            entity.HasOne(d => d.Company).WithMany(p => p.Products)
+                .HasForeignKey(d => d.CompanyId)
+                .HasConstraintName("products_ibfk_1");
+
+            entity.HasOne(d => d.Department).WithMany(p => p.Products)
+                .HasForeignKey(d => d.DepartmentId)
+                .HasConstraintName("products_ibfk_2");
         });
 
         modelBuilder.Entity<Transaction>(entity =>
@@ -127,6 +139,10 @@ public partial class A22Sda1532463Context : DbContext
 
             entity.ToTable("transaction_rows");
 
+            entity.HasIndex(e => e.ProductId, "product_id");
+
+            entity.HasIndex(e => e.TransactionId, "transaction_id");
+
             entity.HasIndex(e => new { e.Id, e.TransactionId }, "transaction_rows_index_4");
 
             entity.Property(e => e.Id).HasColumnName("id");
@@ -137,6 +153,14 @@ public partial class A22Sda1532463Context : DbContext
             entity.Property(e => e.TpsUnit).HasColumnName("tps_unit");
             entity.Property(e => e.TransactionId).HasColumnName("transaction_id");
             entity.Property(e => e.TvqUnit).HasColumnName("tvq_unit");
+
+            entity.HasOne(d => d.Product).WithMany(p => p.TransactionRows)
+                .HasForeignKey(d => d.ProductId)
+                .HasConstraintName("transaction_rows_ibfk_1");
+
+            entity.HasOne(d => d.Transaction).WithMany(p => p.TransactionRows)
+                .HasForeignKey(d => d.TransactionId)
+                .HasConstraintName("transaction_rows_ibfk_2");
         });
 
         OnModelCreatingPartial(modelBuilder);
