@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 
 namespace SGI.ViewModels;
@@ -15,12 +16,11 @@ public class SGIViewModel : BaseViewModel, IPageViewModel
     private ICommand? _addProduct;
     private ICommand? _deleteProduct;
     private ICommand? _editProduct;
-    private A22Sda1532463Context _dbContext;
     private Product? _selectedProduct;
     private int _currentPage;
     private int _totalPages;
     private int _pageSize = 10;
-    private readonly Dictionary<int, List<Product>> _cachedProducts;
+    private Dictionary<int, List<Product>> _cachedProducts;
 
     public string PageId { get; set; }
     public string Title { get; set; }
@@ -28,13 +28,7 @@ public class SGIViewModel : BaseViewModel, IPageViewModel
 
     public ObservableCollection<Product> CurrentPageProducts { get; private set; }
 
-    private A22Sda1532463Context DbContext
-    {
-        get
-        {
-            return _dbContext ??= new A22Sda1532463Context();
-        }
-    }
+    
 
     public ICommand AddProduct
     {
@@ -94,14 +88,30 @@ public class SGIViewModel : BaseViewModel, IPageViewModel
     {
         _cachedProducts = new();
         CurrentPageProducts = new(DbContext.Products.ToList());
+    }
 
+    public void RefreshProducts()
+    {
+        _cachedProducts = new();
+        CurrentPageProducts = new(DbContext.Products.ToList());
+        OnPropertyChanged(nameof(CurrentPageProducts));
     }
 
     #region Methods
     #region RelayCommands
     #region Executes
     void ExecuteAddProduct(object parameter) => ViewChanged.Raise(this, "add");
-    void ExecuteDeleteProduct(object parameter) => ViewChanged.Raise(this, "delete", SelectedProduct);
+    //void ExecuteDeleteProduct(object parameter) => ViewChanged.Raise(this, "delete", SelectedProduct);
+    async void ExecuteDeleteProduct(object parameter)
+    {
+        var result = MessageBox.Show($"Do you really wish to delete ({SelectedProduct.Cup}) {SelectedProduct.Name}?", "", MessageBoxButton.YesNo);
+        if (result == MessageBoxResult.Yes)
+        {
+            DbContext.Products.Remove(SelectedProduct);
+            await DbContext.SaveChangesAsync();
+            RefreshProducts();
+        }
+    }
     void ExecuteEditProduct(object parameter) => ViewChanged.Raise(this, "edit", SelectedProduct);
     #endregion
     #region CanExecutes

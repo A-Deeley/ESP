@@ -3,6 +3,7 @@ using Backend.Models;
 using Backend.ViewModels;
 using SGI.Views;
 using System.Collections.Generic;
+using System.Windows;
 
 namespace SGI.ViewModels;
 
@@ -69,12 +70,9 @@ public class MainViewModel : BaseViewModel
                 CurrentPageViewModel.ViewChanged += OnViewChanged;
                 Title = CurrentPageViewModel.Title;
                 break;
-
-            case "delete":
-                break;
-
             default:
                 CurrentPageViewModel = _pageViewModels["list"];
+                ((SGIViewModel)CurrentPageViewModel).RefreshProducts();
                 Title = CurrentPageViewModel.Title;
                 break;
 

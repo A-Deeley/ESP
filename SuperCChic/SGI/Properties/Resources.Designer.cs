@@ -61,7 +61,7 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create and continue.
+        ///   Looks up a localized string similar to Create.
         /// </summary>
         public static string Add_CreateAndContinue_Btn {
             get {
@@ -79,6 +79,33 @@ namespace SGI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fixed ($).
+        /// </summary>
+        public static string Add_DiscountCombo_Fixed {
+            get {
+                return ResourceManager.GetString("Add_DiscountCombo_Fixed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        public static string Add_DiscountCombo_None {
+            get {
+                return ResourceManager.GetString("Add_DiscountCombo_None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Percent (%).
+        /// </summary>
+        public static string Add_DiscountCombo_Percent {
+            get {
+                return ResourceManager.GetString("Add_DiscountCombo_Percent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Universal Product Code (UPC):.
         /// </summary>
         public static string Add_Labels_CUP {
@@ -88,11 +115,29 @@ namespace SGI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Section.
+        /// </summary>
+        public static string Add_Labels_DeptName {
+            get {
+                return ResourceManager.GetString("Add_Labels_DeptName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Discount.
         /// </summary>
         public static string Add_Labels_Discounts {
             get {
                 return ResourceManager.GetString("Add_Labels_Discounts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Price:.
+        /// </summary>
+        public static string Add_Labels_PriceInput {
+            get {
+                return ResourceManager.GetString("Add_Labels_PriceInput", resourceCulture);
             }
         }
         
@@ -124,11 +169,29 @@ namespace SGI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Qty:.
+        /// </summary>
+        public static string Add_Labels_QtyInput {
+            get {
+                return ResourceManager.GetString("Add_Labels_QtyInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Taxes.
         /// </summary>
         public static string Add_Labels_Taxes {
             get {
                 return ResourceManager.GetString("Add_Labels_Taxes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vendor.
+        /// </summary>
+        public static string Add_Labels_VendorName {
+            get {
+                return ResourceManager.GetString("Add_Labels_VendorName", resourceCulture);
             }
         }
         

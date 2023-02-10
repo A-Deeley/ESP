@@ -118,16 +118,31 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Add_CreateAndContinue_Btn" xml:space="preserve">
-    <value>Create and continue</value>
+    <value>Create</value>
   </data>
   <data name="Add_CreateAndQuit_Btn" xml:space="preserve">
     <value>Create and quit</value>
   </data>
+  <data name="Add_DiscountCombo_Fixed" xml:space="preserve">
+    <value>Fixed ($)</value>
+  </data>
+  <data name="Add_DiscountCombo_None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="Add_DiscountCombo_Percent" xml:space="preserve">
+    <value>Percent (%)</value>
+  </data>
   <data name="Add_Labels_CUP" xml:space="preserve">
     <value>Universal Product Code (UPC):</value>
   </data>
+  <data name="Add_Labels_DeptName" xml:space="preserve">
+    <value>Section</value>
+  </data>
   <data name="Add_Labels_Discounts" xml:space="preserve">
     <value>Discount</value>
+  </data>
+  <data name="Add_Labels_PriceInput" xml:space="preserve">
+    <value>Price:</value>
   </data>
   <data name="Add_Labels_PriceQty" xml:space="preserve">
     <value>Price &amp; Qty</value>
@@ -138,8 +153,14 @@
   <data name="Add_Labels_ProductUnit" xml:space="preserve">
     <value>Quantity type:</value>
   </data>
+  <data name="Add_Labels_QtyInput" xml:space="preserve">
+    <value>Qty:</value>
+  </data>
   <data name="Add_Labels_Taxes" xml:space="preserve">
     <value>Taxes</value>
+  </data>
+  <data name="Add_Labels_VendorName" xml:space="preserve">
+    <value>Vendor</value>
   </data>
   <data name="Add_Previous_Btn" xml:space="preserve">
     <value>Back to list</value>
