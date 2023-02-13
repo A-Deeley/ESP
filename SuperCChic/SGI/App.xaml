@@ -13,6 +13,9 @@
         <DataTemplate DataType="{x:Type viewmodels:AddModifyViewModel}">
             <views:AddEditControl/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:ReportViewModel}">
+            <views:ReportGeneratorControl/>
+        </DataTemplate>
         <!--#endregion-->
         
         <!--#region Styles-->

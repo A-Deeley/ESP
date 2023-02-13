@@ -23,6 +23,7 @@ public class MainViewModel : BaseViewModel
         {
             _pageViewModel = value;
             OnPropertyChanged();
+            Title = CurrentPageViewModel.Title;
         }
     }
 
@@ -59,7 +60,11 @@ public class MainViewModel : BaseViewModel
             case "add":
                 CurrentPageViewModel = new AddModifyViewModel();
                 CurrentPageViewModel.ViewChanged += OnViewChanged;
-                Title = CurrentPageViewModel.Title;
+                break;
+
+            case "reports":
+                CurrentPageViewModel = new ReportViewModel();
+                CurrentPageViewModel.ViewChanged += OnViewChanged;
                 break;
 
             case "edit":
@@ -68,12 +73,10 @@ public class MainViewModel : BaseViewModel
 
                 CurrentPageViewModel = new AddModifyViewModel(e.Model);
                 CurrentPageViewModel.ViewChanged += OnViewChanged;
-                Title = CurrentPageViewModel.Title;
                 break;
             default:
                 CurrentPageViewModel = _pageViewModels["list"];
                 ((SGIViewModel)CurrentPageViewModel).RefreshProducts();
-                Title = CurrentPageViewModel.Title;
                 break;
 
         }

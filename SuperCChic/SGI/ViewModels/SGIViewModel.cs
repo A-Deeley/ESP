@@ -2,6 +2,7 @@
 using Backend.Extensions;
 using Backend.Models;
 using Backend.ViewModels;
+using SGI.Properties;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,6 +17,7 @@ public class SGIViewModel : BaseViewModel, IPageViewModel
     private ICommand? _addProduct;
     private ICommand? _deleteProduct;
     private ICommand? _editProduct;
+    private ICommand? _reports;
     private Product? _selectedProduct;
     private int _currentPage;
     private int _totalPages;
@@ -28,7 +30,15 @@ public class SGIViewModel : BaseViewModel, IPageViewModel
 
     public ObservableCollection<Product> CurrentPageProducts { get; private set; }
 
-    
+
+
+    public ICommand Reports
+    {
+        get
+        {
+            return _reports ??= new RelayCommand(ExecuteReportsView, (p) => false);
+        }
+    }
 
     public ICommand AddProduct
     {
@@ -86,6 +96,7 @@ public class SGIViewModel : BaseViewModel, IPageViewModel
 
     public SGIViewModel()
     {
+        Title = Resources.List_Title;
         _cachedProducts = new();
         CurrentPageProducts = new(DbContext.Products.ToList());
     }
@@ -104,7 +115,7 @@ public class SGIViewModel : BaseViewModel, IPageViewModel
     //void ExecuteDeleteProduct(object parameter) => ViewChanged.Raise(this, "delete", SelectedProduct);
     async void ExecuteDeleteProduct(object parameter)
     {
-        var result = MessageBox.Show($"Do you really wish to delete ({SelectedProduct.Cup}) {SelectedProduct.Name}?", "", MessageBoxButton.YesNo);
+        var result = MessageBox.Show($"{Resources.SGI_Delete_Msg} ({SelectedProduct.Cup}) {SelectedProduct.Name}?", "", MessageBoxButton.YesNo);
         if (result == MessageBoxResult.Yes)
         {
             DbContext.Products.Remove(SelectedProduct);
@@ -113,6 +124,7 @@ public class SGIViewModel : BaseViewModel, IPageViewModel
         }
     }
     void ExecuteEditProduct(object parameter) => ViewChanged.Raise(this, "edit", SelectedProduct);
+    void ExecuteReportsView(object obj) => ViewChanged.Raise(this, "reports");
     #endregion
     #region CanExecutes
     bool CanExecuteDeleteProduct(object parameter) => SelectedProduct is not null;

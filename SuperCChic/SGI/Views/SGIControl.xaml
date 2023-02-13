@@ -26,7 +26,19 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <!--#region List Area (left)-->
-        <DataGrid Margin="2" ItemsSource="{Binding CurrentPageProducts}" SelectedItem="{Binding SelectedProduct}" CanUserAddRows="False" CanUserDeleteRows="False" AlternatingRowBackground="#FFABABAB" AlternationCount="1" IsReadOnly="True"/>
+        <DataGrid Margin="2" ItemsSource="{Binding CurrentPageProducts}" SelectedItem="{Binding SelectedProduct}" CanUserAddRows="False" CanUserDeleteRows="False" AlternatingRowBackground="#FFABABAB" AlternationCount="1" IsReadOnly="True" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="{x:Static resx:Resources.Product_CUP}" Binding="{Binding Cup}"/>
+                <DataGridTextColumn Header="{x:Static resx:Resources.Product_Name}" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="{x:Static resx:Resources.Product_Price}" Binding="{Binding Price}"/>
+                <DataGridTextColumn Header="{x:Static resx:Resources.Product_Qty}" Binding="{Binding Qty}"/>
+                <DataGridTextColumn Header="{x:Static resx:Resources.Product_UnitType}" Binding="{Binding UnitType}"/>
+                <DataGridTextColumn Header="{x:Static resx:Resources.Product_Company}" Binding="{Binding Company.Name}"/>
+                <DataGridTextColumn Header="{x:Static resx:Resources.Product_Dept}" Binding="{Binding Department.Name}"/>
+                <DataGridCheckBoxColumn Header="{x:Static resx:Resources.Product_ApplyTps}" Binding="{Binding ApplyTps}" IsReadOnly="True"/>
+                <DataGridCheckBoxColumn Header="{x:Static resx:Resources.Product_ApplyTvq}" Binding="{Binding ApplyTvq}" IsReadOnly="True"/>
+            </DataGrid.Columns>
+        </DataGrid>
 
         <!--#endregion-->
         <!--#region Filters & Buttons Area (right)-->
@@ -38,6 +50,8 @@
                 <Button Style="{StaticResource ActionBtn}" Command="{Binding EditProduct}" Content="{x:Static resx:Resources.Section_Action_Edit}"/>
                 <Button Style="{StaticResource ActionBtn}" Command="{Binding DeleteProduct}" Content="{x:Static resx:Resources.Section_Action_Delete}"/>
             </WrapPanel>
+            <Separator/>
+            <Button Style="{StaticResource ActionBtn}" Content="{x:Static resx:Resources.List_Report_Btn}" Command="{Binding Reports}"/>
         </StackPanel>
         <!--#endregion-->
         <Button Grid.Column="1" Grid.Row="1" Margin="5" Content="{x:Static resx:Resources.List_Quit_App}" Click="Quit_Button_Click"/>

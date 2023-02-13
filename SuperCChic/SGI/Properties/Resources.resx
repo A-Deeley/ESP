@@ -185,9 +185,48 @@
   <data name="List_Quit_App" xml:space="preserve">
     <value>Quit</value>
   </data>
+  <data name="List_Report_Btn" xml:space="preserve">
+    <value>Reports</value>
+  </data>
   <data name="List_Title" xml:space="preserve">
     <value>SuperCChic Product Management</value>
     <comment>Title for list of products user control.</comment>
+  </data>
+  <data name="Product_ApplyTps" xml:space="preserve">
+    <value>Apply Tps</value>
+  </data>
+  <data name="Product_ApplyTvq" xml:space="preserve">
+    <value>Apply Tvq</value>
+  </data>
+  <data name="Product_Company" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="Product_CUP" xml:space="preserve">
+    <value>UCP</value>
+  </data>
+  <data name="Product_Dept" xml:space="preserve">
+    <value>Department</value>
+  </data>
+  <data name="Product_DiscountAmt" xml:space="preserve">
+    <value>Discount Amt</value>
+  </data>
+  <data name="Product_DiscountType" xml:space="preserve">
+    <value>Discount Type</value>
+  </data>
+  <data name="Product_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Product_Price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="Product_Qty" xml:space="preserve">
+    <value>Qty</value>
+  </data>
+  <data name="Product_UnitType" xml:space="preserve">
+    <value>Unit</value>
+  </data>
+  <data name="Reports_Title" xml:space="preserve">
+    <value>SuperCChic Reports Generator</value>
   </data>
   <data name="Section_Action_Add" xml:space="preserve">
     <value>Add</value>
@@ -202,5 +241,8 @@
   </data>
   <data name="Section_Action_Title" xml:space="preserve">
     <value>Actions</value>
+  </data>
+  <data name="SGI_Delete_Msg" xml:space="preserve">
+    <value>Do you really wish to delete</value>
   </data>
 </root>

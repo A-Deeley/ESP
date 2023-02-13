@@ -259,11 +259,128 @@ namespace SGI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reports.
+        /// </summary>
+        public static string List_Report_Btn {
+            get {
+                return ResourceManager.GetString("List_Report_Btn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SuperCChic Product Management.
         /// </summary>
         public static string List_Title {
             get {
                 return ResourceManager.GetString("List_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply Tps.
+        /// </summary>
+        public static string Product_ApplyTps {
+            get {
+                return ResourceManager.GetString("Product_ApplyTps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply Tvq.
+        /// </summary>
+        public static string Product_ApplyTvq {
+            get {
+                return ResourceManager.GetString("Product_ApplyTvq", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Company.
+        /// </summary>
+        public static string Product_Company {
+            get {
+                return ResourceManager.GetString("Product_Company", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UCP.
+        /// </summary>
+        public static string Product_CUP {
+            get {
+                return ResourceManager.GetString("Product_CUP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Department.
+        /// </summary>
+        public static string Product_Dept {
+            get {
+                return ResourceManager.GetString("Product_Dept", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discount Amt.
+        /// </summary>
+        public static string Product_DiscountAmt {
+            get {
+                return ResourceManager.GetString("Product_DiscountAmt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discount Type.
+        /// </summary>
+        public static string Product_DiscountType {
+            get {
+                return ResourceManager.GetString("Product_DiscountType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Product_Name {
+            get {
+                return ResourceManager.GetString("Product_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Price.
+        /// </summary>
+        public static string Product_Price {
+            get {
+                return ResourceManager.GetString("Product_Price", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Qty.
+        /// </summary>
+        public static string Product_Qty {
+            get {
+                return ResourceManager.GetString("Product_Qty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unit.
+        /// </summary>
+        public static string Product_UnitType {
+            get {
+                return ResourceManager.GetString("Product_UnitType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SuperCChic Reports Generator.
+        /// </summary>
+        public static string Reports_Title {
+            get {
+                return ResourceManager.GetString("Reports_Title", resourceCulture);
             }
         }
         
@@ -300,6 +417,15 @@ namespace SGI.Properties {
         public static string Section_Action_Title {
             get {
                 return ResourceManager.GetString("Section_Action_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really wish to delete.
+        /// </summary>
+        public static string SGI_Delete_Msg {
+            get {
+                return ResourceManager.GetString("SGI_Delete_Msg", resourceCulture);
             }
         }
     }
