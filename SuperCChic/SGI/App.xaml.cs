@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Globalization;
+using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SGI.ViewModels;
@@ -14,6 +15,7 @@ public partial class App : Application
 
     public App()
     {
+        CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("fr-CA");
         AppHost = Host.CreateDefaultBuilder()
             .ConfigureServices((hostContext, services) =>
             {

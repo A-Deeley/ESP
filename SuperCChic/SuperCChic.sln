@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend", "Backend\Backend.csproj", "{FE3B9FBF-765E-4DF6-857F-EBD318271697}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caisse", "Caisse\Caisse.csproj", "{D1FACCD2-D7EA-4692-8BF5-CFA13BDD5BE8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FE3B9FBF-765E-4DF6-857F-EBD318271697} = {FE3B9FBF-765E-4DF6-857F-EBD318271697}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SGI", "SGI\SGI.csproj", "{B17F97DB-1482-407D-82C0-B92EF41016BA}"
 EndProject
