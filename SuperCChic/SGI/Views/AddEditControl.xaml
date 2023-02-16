@@ -80,7 +80,7 @@
                 <!--#endregion-->
                 <!--#region row cup-->
                 <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" Content="{x:Static resx:Resources.Add_Labels_CUP}"/>
-                <TextBox Grid.Column="1" Grid.Row="1" Style="{StaticResource InputText}" Text="{Binding SelectedProduct.Cup,UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Grid.Column="1" Grid.Row="1" Style="{StaticResource InputText}" Text="{Binding Cup,UpdateSourceTrigger=PropertyChanged}"/>
                 <!--#endregion-->
                 <!--#region row name-->
                 <Label Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" Content="{x:Static resx:Resources.Add_Labels_ProductName}"/>
@@ -93,12 +93,12 @@
                 <!--#region row fournisseurs-->
                 <Label Grid.Row="0" Grid.Column="2" Style="{StaticResource Heading_2}" HorizontalAlignment="Center" Content="{x:Static resx:Resources.Add_Labels_VendorName}"/>
                 <Separator Grid.Row="0" Grid.Column="2" VerticalAlignment="Bottom" BorderBrush="Black"/>
-                <cc:FilterableComboBox Grid.Row="1" Grid.Column="2" Margin="5" ItemsSource="{Binding Companies}" EffectivelySelectedItem="{Binding SelectedCompany}" Text="{Binding CompanyText, UpdateSourceTrigger=PropertyChanged}"/>
+                <cc:FilterableComboBox Grid.Row="1" Grid.Column="2" Margin="5" ItemsSource="{Binding Companies}" Text="{Binding CompanyText, UpdateSourceTrigger=PropertyChanged}"/>
                 <!--#endregion-->
                 <!--#region row départements-->
                 <Label Grid.Row="2" Grid.Column="2" Style="{StaticResource Heading_2}" HorizontalAlignment="Center" Content="{x:Static resx:Resources.Add_Labels_DeptName}"/>
                 <Separator Grid.Row="2" Grid.Column="2" VerticalAlignment="Bottom" BorderBrush="Black"/>
-                <cc:FilterableComboBox Grid.Row="3" Grid.Column="2" Margin="5" ItemsSource="{Binding Departements}" EffectivelySelectedItem="{Binding SelectedDept}" Text="{Binding DeptText, UpdateSourceTrigger=PropertyChanged}"/>
+                <cc:FilterableComboBox Grid.Row="3" Grid.Column="2" Margin="5" ItemsSource="{Binding Departements}" Text="{Binding DeptText, UpdateSourceTrigger=PropertyChanged}"/>
                 <!--#endregion-->
             </Grid>
         </StackPanel>
