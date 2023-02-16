@@ -93,12 +93,12 @@
                 <!--#region row fournisseurs-->
                 <Label Grid.Row="0" Grid.Column="2" Style="{StaticResource Heading_2}" HorizontalAlignment="Center" Content="{x:Static resx:Resources.Add_Labels_VendorName}"/>
                 <Separator Grid.Row="0" Grid.Column="2" VerticalAlignment="Bottom" BorderBrush="Black"/>
-                <cc:FilterableComboBox Grid.Row="1" Grid.Column="2" Margin="5" ItemsSource="{Binding Companies}" SelectedIndex="{Binding SelectedCompanyIndex}" Text="{Binding CompanyText,UpdateSourceTrigger=PropertyChanged}"/>
+                <cc:FilterableComboBox Grid.Row="1" Grid.Column="2" Margin="5" ItemsSource="{Binding Companies}" EffectivelySelectedItem="{Binding SelectedCompany}" Text="{Binding CompanyText, UpdateSourceTrigger=PropertyChanged}"/>
                 <!--#endregion-->
                 <!--#region row départements-->
                 <Label Grid.Row="2" Grid.Column="2" Style="{StaticResource Heading_2}" HorizontalAlignment="Center" Content="{x:Static resx:Resources.Add_Labels_DeptName}"/>
                 <Separator Grid.Row="2" Grid.Column="2" VerticalAlignment="Bottom" BorderBrush="Black"/>
-                <cc:FilterableComboBox Grid.Row="3" Grid.Column="2" Margin="5" ItemsSource="{Binding Departements}" SelectedIndex="{Binding SelectedDepartmentIndex}" Text="{Binding DeptText,UpdateSourceTrigger=PropertyChanged}"/>
+                <cc:FilterableComboBox Grid.Row="3" Grid.Column="2" Margin="5" ItemsSource="{Binding Departements}" EffectivelySelectedItem="{Binding SelectedDept}" Text="{Binding DeptText, UpdateSourceTrigger=PropertyChanged}"/>
                 <!--#endregion-->
             </Grid>
         </StackPanel>
@@ -191,8 +191,8 @@
             </StackPanel>
         </Button>
         <WrapPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal" FlowDirection="RightToLeft">
-            <Button Style="{StaticResource ActionBtn}" Content="{x:Static resx:Resources.Add_CreateAndContinue_Btn}" Background="Green" Command="{Binding Create}"/>
-            <Button Style="{StaticResource ActionBtn}" Content="{x:Static resx:Resources.Add_CreateAndQuit_Btn}" Background="Yellow" Command="{Binding CreateAndQuit}"/>
+            <Button Style="{StaticResource ActionBtn}" Content="{Binding ActionBtnText}" Background="Green" Command="{Binding Action}"/>
+            <Button Style="{StaticResource ActionBtn}" Content="{Binding ActionQuitBtnText}" Background="Yellow" Command="{Binding ActionAndQuit}"/>
         </WrapPanel>
         <!--#endregion-->
     </Grid>

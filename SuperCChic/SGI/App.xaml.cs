@@ -15,7 +15,6 @@ public partial class App : Application
 
     public App()
     {
-        CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("fr-CA");
         AppHost = Host.CreateDefaultBuilder()
             .ConfigureServices((hostContext, services) =>
             {

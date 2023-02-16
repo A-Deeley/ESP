@@ -22,14 +22,14 @@ namespace SGI.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Resources___Copy {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources___Copy() {
+        internal Resources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace SGI.Properties {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SGI.Properties.Resources - Copy", typeof(Resources___Copy).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SGI.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,7 +61,7 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create.
+        ///   Looks up a localized string similar to Créer.
         /// </summary>
         public static string Add_CreateAndContinue_Btn {
             get {
@@ -70,7 +70,7 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create and quit.
+        ///   Looks up a localized string similar to Créer et quitter.
         /// </summary>
         public static string Add_CreateAndQuit_Btn {
             get {
@@ -79,7 +79,7 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fixed ($).
+        ///   Looks up a localized string similar to Fixe ($).
         /// </summary>
         public static string Add_DiscountCombo_Fixed {
             get {
@@ -88,7 +88,7 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to None.
+        ///   Looks up a localized string similar to Aucun.
         /// </summary>
         public static string Add_DiscountCombo_None {
             get {
@@ -97,7 +97,7 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Percent (%).
+        ///   Looks up a localized string similar to Pourcentage (%).
         /// </summary>
         public static string Add_DiscountCombo_Percent {
             get {
@@ -106,7 +106,7 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Universal Product Code (UPC):.
+        ///   Looks up a localized string similar to Code Universel de Produit (CUP): .
         /// </summary>
         public static string Add_Labels_CUP {
             get {
@@ -124,7 +124,7 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Discount.
+        ///   Looks up a localized string similar to Rabais.
         /// </summary>
         public static string Add_Labels_Discounts {
             get {
@@ -133,7 +133,7 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Price:.
+        ///   Looks up a localized string similar to Prix:.
         /// </summary>
         public static string Add_Labels_PriceInput {
             get {
@@ -142,7 +142,7 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Price &amp; Qty.
+        ///   Looks up a localized string similar to Prix &amp; Qty.
         /// </summary>
         public static string Add_Labels_PriceQty {
             get {
@@ -151,7 +151,7 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Product name:.
+        ///   Looks up a localized string similar to Nom du produit:.
         /// </summary>
         public static string Add_Labels_ProductName {
             get {
@@ -160,7 +160,7 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Quantity type:.
+        ///   Looks up a localized string similar to Type d&apos;unité:.
         /// </summary>
         public static string Add_Labels_ProductUnit {
             get {
@@ -187,7 +187,7 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vendor.
+        ///   Looks up a localized string similar to Vendeur.
         /// </summary>
         public static string Add_Labels_VendorName {
             get {
@@ -196,7 +196,7 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Back to list.
+        ///   Looks up a localized string similar to Retour à la liste.
         /// </summary>
         public static string Add_Previous_Btn {
             get {
@@ -205,7 +205,7 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reset Values.
+        ///   Looks up a localized string similar to Réinitialiser.
         /// </summary>
         public static string Add_Reset_Btn {
             get {
@@ -214,7 +214,7 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add a new product.
+        ///   Looks up a localized string similar to Ajouter un nouveau produit.
         /// </summary>
         public static string Add_Title {
             get {
@@ -223,7 +223,7 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Product Info.
+        ///   Looks up a localized string similar to Infos du produit.
         /// </summary>
         public static string Add_Titles_ProductInfo {
             get {
@@ -232,7 +232,7 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pricing.
+        ///   Looks up a localized string similar to Détails de vente.
         /// </summary>
         public static string Add_Titles_SalesInfo {
             get {
@@ -241,7 +241,25 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Editing an existing product....
+        ///   Looks up a localized string similar to Mettre à jour.
+        /// </summary>
+        public static string Add_UpdateAndContinue_Btn {
+            get {
+                return ResourceManager.GetString("Add_UpdateAndContinue_Btn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mettre à jour et quitter.
+        /// </summary>
+        public static string Add_UpdateAndQuit_Btn {
+            get {
+                return ResourceManager.GetString("Add_UpdateAndQuit_Btn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modification d&apos;un produit existant....
         /// </summary>
         public static string Edit_Title {
             get {
@@ -250,7 +268,7 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Quit.
+        ///   Looks up a localized string similar to Quitter.
         /// </summary>
         public static string List_Quit_App {
             get {
@@ -259,7 +277,7 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reports.
+        ///   Looks up a localized string similar to Rapports.
         /// </summary>
         public static string List_Report_Btn {
             get {
@@ -268,7 +286,7 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SuperCChic Product Management.
+        ///   Looks up a localized string similar to Système de gestion de produits Super CChic.
         /// </summary>
         public static string List_Title {
             get {
@@ -277,7 +295,7 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Apply Tps.
+        ///   Looks up a localized string similar to Appliquer Tps.
         /// </summary>
         public static string Product_ApplyTps {
             get {
@@ -286,7 +304,7 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Apply Tvq.
+        ///   Looks up a localized string similar to Appliquer Tvq.
         /// </summary>
         public static string Product_ApplyTvq {
             get {
@@ -295,7 +313,7 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Company.
+        ///   Looks up a localized string similar to Companie.
         /// </summary>
         public static string Product_Company {
             get {
@@ -304,7 +322,7 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to UCP.
+        ///   Looks up a localized string similar to CUP.
         /// </summary>
         public static string Product_CUP {
             get {
@@ -313,7 +331,7 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Department.
+        ///   Looks up a localized string similar to Département.
         /// </summary>
         public static string Product_Dept {
             get {
@@ -322,7 +340,7 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Discount Amt.
+        ///   Looks up a localized string similar to Rabais.
         /// </summary>
         public static string Product_DiscountAmt {
             get {
@@ -331,7 +349,7 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Discount Type.
+        ///   Looks up a localized string similar to Type de rabais.
         /// </summary>
         public static string Product_DiscountType {
             get {
@@ -340,7 +358,7 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Name.
+        ///   Looks up a localized string similar to Nom.
         /// </summary>
         public static string Product_Name {
             get {
@@ -349,7 +367,7 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Price.
+        ///   Looks up a localized string similar to Prix.
         /// </summary>
         public static string Product_Price {
             get {
@@ -367,7 +385,7 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unit.
+        ///   Looks up a localized string similar to Unité.
         /// </summary>
         public static string Product_UnitType {
             get {
@@ -376,7 +394,7 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SuperCChic Reports Generator.
+        ///   Looks up a localized string similar to Générateur de rapports Super CCHic.
         /// </summary>
         public static string Reports_Title {
             get {
@@ -385,7 +403,7 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add.
+        ///   Looks up a localized string similar to Ajouter.
         /// </summary>
         public static string Section_Action_Add {
             get {
@@ -394,7 +412,7 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete.
+        ///   Looks up a localized string similar to Supprimer.
         /// </summary>
         public static string Section_Action_Delete {
             get {
@@ -403,7 +421,7 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit.
+        ///   Looks up a localized string similar to Modifier.
         /// </summary>
         public static string Section_Action_Edit {
             get {
@@ -421,7 +439,7 @@ namespace SGI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you really wish to delete.
+        ///   Looks up a localized string similar to Voulez vous vraiment supprimer.
         /// </summary>
         public static string SGI_Delete_Msg {
             get {

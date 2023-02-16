@@ -117,138 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Add_CreateAndContinue_Btn" xml:space="preserve">
-    <value>Create</value>
+  <data name="Caisse_CUP_Input_Watermark" xml:space="preserve">
+    <value>Scan or enter CUP</value>
   </data>
-  <data name="Add_CreateAndQuit_Btn" xml:space="preserve">
-    <value>Create and quit</value>
+  <data name="Caisse_Finish_Transaction_Btn" xml:space="preserve">
+    <value>Payment</value>
   </data>
-  <data name="Add_DiscountCombo_Fixed" xml:space="preserve">
-    <value>Fixed ($)</value>
+  <data name="Caisse_Product_Name_Header" xml:space="preserve">
+    <value>Product</value>
   </data>
-  <data name="Add_DiscountCombo_None" xml:space="preserve">
-    <value>None</value>
+  <data name="Caisse_Product_Price_Subtotal" xml:space="preserve">
+    <value>Subtotal</value>
   </data>
-  <data name="Add_DiscountCombo_Percent" xml:space="preserve">
-    <value>Percent (%)</value>
+  <data name="Caisse_Subtotal_Title" xml:space="preserve">
+    <value>Subtotal</value>
   </data>
-  <data name="Add_Labels_CUP" xml:space="preserve">
-    <value>Universal Product Code (UPC):</value>
-  </data>
-  <data name="Add_Labels_DeptName" xml:space="preserve">
-    <value>Section</value>
-  </data>
-  <data name="Add_Labels_Discounts" xml:space="preserve">
-    <value>Discount</value>
-  </data>
-  <data name="Add_Labels_PriceInput" xml:space="preserve">
-    <value>Price:</value>
-  </data>
-  <data name="Add_Labels_PriceQty" xml:space="preserve">
-    <value>Price &amp; Qty</value>
-  </data>
-  <data name="Add_Labels_ProductName" xml:space="preserve">
-    <value>Product name:</value>
-  </data>
-  <data name="Add_Labels_ProductUnit" xml:space="preserve">
-    <value>Quantity type:</value>
-  </data>
-  <data name="Add_Labels_QtyInput" xml:space="preserve">
-    <value>Qty:</value>
-  </data>
-  <data name="Add_Labels_Taxes" xml:space="preserve">
+  <data name="Caisse_Taxes_Title" xml:space="preserve">
     <value>Taxes</value>
   </data>
-  <data name="Add_Labels_VendorName" xml:space="preserve">
-    <value>Vendor</value>
+  <data name="Caisse_Total_Title" xml:space="preserve">
+    <value>Total:</value>
   </data>
-  <data name="Add_Previous_Btn" xml:space="preserve">
-    <value>Back to list</value>
+  <data name="Caisse_Tps_Details" xml:space="preserve">
+    <value>TPS (5.000%):</value>
   </data>
-  <data name="Add_Reset_Btn" xml:space="preserve">
-    <value>Reset Values</value>
+  <data name="Caisse_Tvq_Details" xml:space="preserve">
+    <value>TVQ (9.975%):</value>
   </data>
-  <data name="Add_Title" xml:space="preserve">
-    <value>Add a new product</value>
-    <comment>Title for add product user control.</comment>
-  </data>
-  <data name="Add_Titles_ProductInfo" xml:space="preserve">
-    <value>Product Info</value>
-  </data>
-  <data name="Add_Titles_SalesInfo" xml:space="preserve">
-    <value>Pricing</value>
-  </data>
-  <data name="Add_UpdateAndContinue_Btn" xml:space="preserve">
-    <value>Update</value>
-  </data>
-  <data name="Add_UpdateAndQuit_Btn" xml:space="preserve">
-    <value>Update and quit</value>
-  </data>
-  <data name="Edit_Title" xml:space="preserve">
-    <value>Editing an existing product...</value>
-    <comment>Title for edit product user control.</comment>
-  </data>
-  <data name="List_Quit_App" xml:space="preserve">
-    <value>Quit</value>
-  </data>
-  <data name="List_Report_Btn" xml:space="preserve">
-    <value>Reports</value>
-  </data>
-  <data name="List_Title" xml:space="preserve">
-    <value>SuperCChic Product Management</value>
-    <comment>Title for list of products user control.</comment>
-  </data>
-  <data name="Product_ApplyTps" xml:space="preserve">
-    <value>Apply Tps</value>
-  </data>
-  <data name="Product_ApplyTvq" xml:space="preserve">
-    <value>Apply Tvq</value>
-  </data>
-  <data name="Product_Company" xml:space="preserve">
-    <value>Company</value>
-  </data>
-  <data name="Product_CUP" xml:space="preserve">
-    <value>UCP</value>
-  </data>
-  <data name="Product_Dept" xml:space="preserve">
-    <value>Department</value>
-  </data>
-  <data name="Product_DiscountAmt" xml:space="preserve">
-    <value>Discount Amt</value>
-  </data>
-  <data name="Product_DiscountType" xml:space="preserve">
-    <value>Discount Type</value>
-  </data>
-  <data name="Product_Name" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="Product_Price" xml:space="preserve">
-    <value>Price</value>
-  </data>
-  <data name="Product_Qty" xml:space="preserve">
-    <value>Qty</value>
-  </data>
-  <data name="Product_UnitType" xml:space="preserve">
-    <value>Unit</value>
-  </data>
-  <data name="Reports_Title" xml:space="preserve">
-    <value>SuperCChic Reports Generator</value>
-  </data>
-  <data name="Section_Action_Add" xml:space="preserve">
+  <data name="Mode_Add" xml:space="preserve">
     <value>Add</value>
-    <comment>Text for add product button in list control.</comment>
   </data>
-  <data name="Section_Action_Delete" xml:space="preserve">
-    <value>Delete</value>
-    <comment>Text for delete product button in list control.</comment>
+  <data name="Mode_Many" xml:space="preserve">
+    <value>Multiple</value>
   </data>
-  <data name="Section_Action_Edit" xml:space="preserve">
-    <value>Edit</value>
+  <data name="Mode_Remove" xml:space="preserve">
+    <value>Remove</value>
   </data>
-  <data name="Section_Action_Title" xml:space="preserve">
-    <value>Actions</value>
+  <data name="Mode_Single" xml:space="preserve">
+    <value>Single</value>
   </data>
-  <data name="SGI_Delete_Msg" xml:space="preserve">
-    <value>Do you really wish to delete</value>
+  <data name="Mode_Title" xml:space="preserve">
+    <value>Modes</value>
   </data>
 </root>

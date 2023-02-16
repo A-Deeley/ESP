@@ -26,8 +26,9 @@ public partial class A22Sda1532463Context : DbContext
     public virtual DbSet<TransactionRow> TransactionRows { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySQL("Server=sql.decinfo-cchic.ca;Port=33306;Database=a22_sda_1532463;Uid=dev-1532463;Pwd=Info2020");
+        => optionsBuilder
+            .UseLazyLoadingProxies()
+            .UseMySQL("Server=sql.decinfo-cchic.ca;Port=33306;Database=a22_sda_1532463;Uid=dev-1532463;Pwd=Info2020");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

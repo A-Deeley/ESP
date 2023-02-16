@@ -1,0 +1,89 @@
+﻿<UserControl x:Class="Caisse.Views.CaisseUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:resx="clr-namespace:Caisse.Properties"
+             xmlns:vm="clr-namespace:Caisse.ViewModels"
+             d:DataContext="{d:DesignInstance vm:CaisseViewModel}"
+             xmlns:ept="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:local="clr-namespace:Caisse.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="600"
+             PreviewKeyDown="UserControl_PreviewKeyDown"
+             Loaded="UserControl_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <!--#region Transaction Rows-->
+        <DataGrid Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="5" AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding TransactionRows}" HorizontalScrollBarVisibility="Hidden">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="{x:Static resx:Resources.Caisse_Product_Name_Header}" Width="3*" Binding="{Binding Product.Name}"/>
+                <DataGridTextColumn Header="{x:Static resx:Resources.Caisse_Product_Price_Subtotal}" Width="*" Binding="{Binding PriceUnit}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Column="3" Margin="5">
+            <Label Style="{StaticResource Title}" Content="{x:Static resx:Resources.Caisse_Subtotal_Title}"/>
+            <Separator/>
+            <Label Content="{Binding Subtotal}" HorizontalAlignment="Center"/>
+            <Label Style="{StaticResource Title}" Content="{x:Static resx:Resources.Caisse_Taxes_Title}"/>
+            <Separator/>
+            <Grid>
+                <Label Content="{x:Static resx:Resources.Caisse_Tps_Details}"/>
+                <Label Content="{Binding TotalTps}" HorizontalAlignment="Right"/>
+            </Grid>
+            <Grid>
+                <Label Content="{x:Static resx:Resources.Caisse_Tvq_Details}"/>
+                <Label Content="{Binding TotalTvq}" HorizontalAlignment="Right"/>
+            </Grid>
+        </StackPanel>
+        <Grid Grid.Column="3" VerticalAlignment="Bottom">
+            <Label Style="{StaticResource Title}" Content="{x:Static resx:Resources.Caisse_Total_Title}"/>
+            <Label Content="{Binding Total}"  HorizontalAlignment="Right"/>
+        </Grid>
+        <!--#endregion-->
+        <!--#region Modes-->
+        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+            <Label Style="{StaticResource Heading_1}" Content="{x:Static resx:Resources.Mode_Title}" HorizontalAlignment="Center"/>
+            <Separator/>
+        </StackPanel>
+        <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <!--#region Ajouter/Retirer-->
+            <Label x:Name="Label_Add" Content="{x:Static resx:Resources.Mode_Add}" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <ToggleButton x:Name="AddRemoveToggle" Grid.Column="1" Style="{StaticResource AddRemove}" Click="AddRemoveToggle_Click" IsChecked="{Binding RemoveModeEnabled}"/>
+            <Label x:Name="Label_Remove" Content="{x:Static resx:Resources.Mode_Remove}" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <!--#endregion-->
+            <Rectangle Grid.Column="3" VerticalAlignment="Stretch" Width="1" Margin="2" Stroke="Black"/>
+            <!--#region Unitaire/Multiple-->
+            <Label x:Name="Label_Single" Content="{x:Static resx:Resources.Mode_Single}" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <ToggleButton x:Name="SingleMultipleToggle" Grid.Column="5" Style="{StaticResource SingleMany}" Click="SingleMultipleToggle_Click" IsChecked="{Binding CustomQuantityModeEnabled}"/>
+            <Label x:Name="Label_Multiple" Content="{x:Static resx:Resources.Mode_Many}" Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <!--#endregion-->
+        </Grid>
+        <!--#region CUP input-->
+        <ept:WatermarkTextBox x:Name="CUP_Input" Watermark="{x:Static resx:Resources.Caisse_CUP_Input_Watermark}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="5" Text="{Binding CUPInput, UpdateSourceTrigger=PropertyChanged}"/>
+        <!--#endregion-->
+        <Button Grid.Column="3" Grid.Row="3" Style="{StaticResource ActionBtn}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="{x:Static resx:Resources.Caisse_Finish_Transaction_Btn}" Command=""/>
+        <!--#endregion-->
+        
+    </Grid>
+</UserControl>

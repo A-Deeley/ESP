@@ -5,6 +5,7 @@ using Backend.ViewModels;
 using SGI.Properties;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Windows.Input;
 
@@ -14,9 +15,9 @@ public class AddModifyViewModel : BaseViewModel, IPageViewModel
 {
     private ICommand? _previous;
     private ICommand? _reset;
-    private ICommand? _create;
-    private ICommand? _createAndQuit;
     private Product _originalReference;
+    private Company _selectedCompany;
+    private Department _selectedDept;
     private int _selectedDiscountIndex;
     private int _selectedDepartmentIndex;
     private int _selectedCompanyIndex;
@@ -25,6 +26,28 @@ public class AddModifyViewModel : BaseViewModel, IPageViewModel
     private double _discountAmt;
     private string _companyText;
     private string _deptText;
+    private string _actionQuitBtnText;
+    private string _actionBtnText;
+
+    public string ActionQuitBtnText
+    {
+        get => _actionQuitBtnText;
+        set
+        {
+            _actionQuitBtnText = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public string ActionBtnText
+    {
+        get => _actionBtnText;
+        set
+        {
+            _actionBtnText = value;
+            OnPropertyChanged();
+        }
+    }
 
     public string CompanyText
     {
@@ -98,6 +121,26 @@ public class AddModifyViewModel : BaseViewModel, IPageViewModel
         }
     }
 
+    public Company SelectedCompany
+    {
+        get => _selectedCompany;
+        set
+        {
+            _selectedCompany = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public Department SelectedDept
+    {
+        get => _selectedDept;
+        set
+        {
+            _selectedDept = value;
+            OnPropertyChanged();
+        }
+    }
+
     public List<Department> Departements { get; private set; }
     public List<Company> Companies { get; private set; }
 
@@ -145,21 +188,8 @@ public class AddModifyViewModel : BaseViewModel, IPageViewModel
         }
     }
 
-    public ICommand Create
-    {
-        get
-        {
-            return _create ??= new RelayCommand(ExecuteCreate, CanExecuteCreate);
-        }
-    }
-
-    public ICommand CreateAndQuit
-    {
-        get
-        {
-            return _createAndQuit ??= new RelayCommand(ExecuteCreateAndQuit, CanExecuteCreate);
-        }
-    }
+    public ICommand Action { get; set; }
+    public ICommand ActionAndQuit { get; set; }
 
     public Product SelectedProduct { get; set; }
     public string PageId { get; set; }
@@ -181,8 +211,10 @@ public class AddModifyViewModel : BaseViewModel, IPageViewModel
         Price = SelectedProduct.Price;
         Qty = SelectedProduct.Qty;
         DiscountAmt = SelectedProduct.DiscountAmt;
-        SelectedCompanyIndex = Companies.IndexOf(SelectedProduct.Company);
-        SelectedDepartmentIndex = Departements.IndexOf(SelectedProduct.Department);
+        SelectedCompany = Companies.First(company => company.Name == SelectedProduct.Company.Name);
+        SelectedDept = Departements.First(dept => dept.Name == SelectedProduct.Department.Name);
+        CompanyText = SelectedCompany.Name;
+        DeptText = SelectedDept.Name;
         SelectedDiscountIndex = (int)SelectedProduct.DiscountType;
     }
 
@@ -192,6 +224,10 @@ public class AddModifyViewModel : BaseViewModel, IPageViewModel
         Init();
         PageId = "add";
         Title = $"{Resources.Add_Title}";
+        Action = new RelayCommand(ExecuteCreate, CanExecuteCreate);
+        ActionAndQuit = new RelayCommand(ExecuteCreateAndQuit, CanExecuteCreate);
+        ActionBtnText = Resources.Add_CreateAndContinue_Btn;
+        ActionQuitBtnText = Resources.Add_CreateAndQuit_Btn;
     }
 
     public AddModifyViewModel(Product p)
@@ -200,6 +236,10 @@ public class AddModifyViewModel : BaseViewModel, IPageViewModel
         Init(p);
         PageId = "edit";
         Title = $"{Resources.Edit_Title}";
+        Action = new RelayCommand(ExecuteUpdate, CanExecuteUpdate);
+        ActionAndQuit = new RelayCommand(ExecuteUpdateAndQuit, CanExecuteUpdate);
+        ActionBtnText = Resources.Add_UpdateAndContinue_Btn;
+        ActionQuitBtnText = Resources.Add_UpdateAndQuit_Btn;
     }
 
     void ExecuteBackToListView(object parameter)
@@ -207,9 +247,27 @@ public class AddModifyViewModel : BaseViewModel, IPageViewModel
         ViewChanged.Raise(this, "list");
     }
 
-    void ExecuteCreate(object parameter)
+    async void ExecuteCreate(object parameter)
     {
+        SelectedProduct.Price = (float)Price;
+        SelectedProduct.Qty = (float)Qty;
+        SelectedProduct.DiscountAmt = (SelectedDiscountIndex > 0)
+            ? (float)DiscountAmt
+            : 0f;
 
+        if (SelectedCompany == null)
+            SelectedProduct.Company = new() { Name = CompanyText };
+        else
+            SelectedProduct.Company = SelectedCompany;
+
+        if (SelectedDepartmentIndex == null)
+            SelectedProduct.Department = new() { Name = DeptText };
+        else
+            SelectedProduct.Department = SelectedDept;
+
+        DbContext.Products.Add(SelectedProduct);
+        await DbContext.SaveChangesAsync();
+        CommandManager.InvalidateRequerySuggested();
     }
 
     async void ExecuteCreateAndQuit(object parameter)
@@ -220,19 +278,89 @@ public class AddModifyViewModel : BaseViewModel, IPageViewModel
             ? (float)DiscountAmt
             : 0f;
 
-        if (SelectedCompanyIndex == -1)
+        if (SelectedCompany == null)
             SelectedProduct.Company = new() { Name = CompanyText };
         else
-            SelectedProduct.Company = Companies[SelectedCompanyIndex];
+            SelectedProduct.Company = SelectedCompany;
 
-        if (SelectedDepartmentIndex == -1)
+        if (SelectedDepartmentIndex == null)
             SelectedProduct.Department = new() { Name = DeptText };
         else
-            SelectedProduct.Department = Departements[SelectedDepartmentIndex];
+            SelectedProduct.Department = SelectedDept;
 
         DbContext.Products.Add(SelectedProduct);
         await DbContext.SaveChangesAsync();
         ViewChanged.Raise(this, "list");
+    }
+
+    async void ExecuteUpdate(object parameter)
+    {
+        Product dbContextProduct = await DbContext.Products.FindAsync(SelectedProduct.Id);
+
+        dbContextProduct.Cup = SelectedProduct.Cup;
+        dbContextProduct.Price = (float)Price;
+        dbContextProduct.Qty = (float)Qty;
+        dbContextProduct.DiscountAmt = (SelectedDiscountIndex > 0)
+            ? (float)DiscountAmt
+            : 0f;
+
+        dbContextProduct.ApplyTps = (ApplyTvq) ? (uint)1 : 0;
+        dbContextProduct.ApplyTvq = (ApplyTps) ? (uint)1 : 0;
+
+        dbContextProduct.UnitType = SelectedProduct.UnitType;
+
+        dbContextProduct.DiscountType = SelectedProduct.DiscountType;
+
+        if (SelectedCompany == null)
+            dbContextProduct.Company = new() { Name = CompanyText };
+        else
+            dbContextProduct.Company = SelectedCompany;
+
+        if (SelectedDepartmentIndex == null)
+            dbContextProduct.Department = new() { Name = DeptText };
+        else
+            dbContextProduct.Department = SelectedDept;
+
+        await DbContext.SaveChangesAsync();
+        _originalReference = dbContextProduct;
+        CommandManager.InvalidateRequerySuggested();
+    }
+
+    async void ExecuteUpdateAndQuit(object parameter)
+    {
+        Product dbContextProduct = await DbContext.Products.FindAsync(SelectedProduct.Id);
+
+        dbContextProduct.Cup = SelectedProduct.Cup;
+        dbContextProduct.Price = (float)Price;
+        dbContextProduct.Qty = (float)Qty;
+        dbContextProduct.DiscountAmt = (SelectedDiscountIndex > 0)
+            ? (float)DiscountAmt
+            : 0f;
+
+        dbContextProduct.ApplyTps = (ApplyTvq) ? (uint)1 : 0;
+        dbContextProduct.ApplyTvq = (ApplyTps) ? (uint)1 : 0;
+
+        dbContextProduct.UnitType = SelectedProduct.UnitType;
+
+        dbContextProduct.DiscountType = SelectedProduct.DiscountType;
+
+        if (SelectedCompany == null)
+            SelectedProduct.Company = new() { Name = CompanyText };
+        else
+            SelectedProduct.Company = SelectedCompany;
+
+        if (SelectedDepartmentIndex == null)
+            SelectedProduct.Department = new() { Name = DeptText };
+        else
+            SelectedProduct.Department = SelectedDept;
+
+        await DbContext.SaveChangesAsync();
+        ViewChanged.Raise(this, "list");
+    }
+
+    bool CanExecuteUpdate(object parameter)
+    {
+        return true;
     }
 
     void ExecuteReset(object parameter)

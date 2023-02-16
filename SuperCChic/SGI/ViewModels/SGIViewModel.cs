@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -101,9 +102,10 @@ public class SGIViewModel : BaseViewModel, IPageViewModel
         CurrentPageProducts = new(DbContext.Products.ToList());
     }
 
-    public void RefreshProducts()
+    public async void RefreshProducts()
     {
         _cachedProducts = new();
+        DbContext = new A22Sda1532463Context();
         CurrentPageProducts = new(DbContext.Products.ToList());
         OnPropertyChanged(nameof(CurrentPageProducts));
     }
