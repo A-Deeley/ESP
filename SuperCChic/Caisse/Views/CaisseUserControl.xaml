@@ -8,10 +8,15 @@
              d:DataContext="{d:DesignInstance vm:CaisseViewModel}"
              xmlns:ept="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:local="clr-namespace:Caisse.Views"
+             xmlns:conv="clr-namespace:Caisse.ValueConverters"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="600"
              PreviewKeyDown="UserControl_PreviewKeyDown"
              Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <conv:NumberSignToBooleanConverter x:Key="isPositiveConverter" />
+        <conv:DisplayDollarSignConverter x:Key="dollarSignConverter" />
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -26,30 +31,40 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <!--#region Transaction Rows-->
-        <DataGrid Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="5" AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding TransactionRows}" HorizontalScrollBarVisibility="Hidden">
+        <DataGrid FontSize="16px" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="5" AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding TransactionRows}" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{x:Static resx:Resources.Caisse_Product_Name_Header}" Width="3*" Binding="{Binding Product.Name}"/>
-                <DataGridTextColumn Header="{x:Static resx:Resources.Caisse_Product_Price_Subtotal}" Width="*" Binding="{Binding PriceUnit}"/>
+                <DataGridTextColumn Header="{x:Static resx:Resources.Caisse_Product_Name_Header}" Width="3*" Binding="{Binding TextCaisse}"/>
+                <DataGridTextColumn Header="{x:Static resx:Resources.Caisse_Product_Price_Subtotal}" Width="*" Binding="{Binding Subtotal, Converter={StaticResource dollarSignConverter}}"/>
             </DataGrid.Columns>
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Foreground" Value="Black"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=Subtotal, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource isPositiveConverter}}" Value="False">
+                            <Setter Property="Foreground" Value="Red"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
         </DataGrid>
         <StackPanel Grid.Column="3" Margin="5">
             <Label Style="{StaticResource Title}" Content="{x:Static resx:Resources.Caisse_Subtotal_Title}"/>
             <Separator/>
-            <Label Content="{Binding Subtotal}" HorizontalAlignment="Center"/>
+            <Label FontSize="16pt" FontWeight="Bold" Content="{Binding Subtotal, Converter={StaticResource dollarSignConverter}}" HorizontalAlignment="Center"/>
             <Label Style="{StaticResource Title}" Content="{x:Static resx:Resources.Caisse_Taxes_Title}"/>
             <Separator/>
             <Grid>
                 <Label Content="{x:Static resx:Resources.Caisse_Tps_Details}"/>
-                <Label Content="{Binding TotalTps}" HorizontalAlignment="Right"/>
+                <Label Content="{Binding TotalTps, Converter={StaticResource dollarSignConverter}}" HorizontalAlignment="Right"/>
             </Grid>
             <Grid>
                 <Label Content="{x:Static resx:Resources.Caisse_Tvq_Details}"/>
-                <Label Content="{Binding TotalTvq}" HorizontalAlignment="Right"/>
+                <Label Content="{Binding TotalTvq, Converter={StaticResource dollarSignConverter}}" HorizontalAlignment="Right"/>
             </Grid>
         </StackPanel>
         <Grid Grid.Column="3" VerticalAlignment="Bottom">
             <Label Style="{StaticResource Title}" Content="{x:Static resx:Resources.Caisse_Total_Title}"/>
-            <Label Content="{Binding Total}"  HorizontalAlignment="Right"/>
+            <Label FontSize="16pt" FontWeight="Bold" Content="{Binding Total, Converter={StaticResource dollarSignConverter}}"  HorizontalAlignment="Right"/>
         </Grid>
         <!--#endregion-->
         <!--#region Modes-->

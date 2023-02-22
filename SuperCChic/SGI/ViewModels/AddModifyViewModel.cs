@@ -185,8 +185,8 @@ public class AddModifyViewModel : BaseViewModel, IPageViewModel
             {
                 _cup = value;
                 OnPropertyChanged();
-                Window web = new WebDisplayer($"barcodelookup.com/{value}");
-                web.Show();
+                //Window web = new WebDisplayer($"barcodelookup.com/{value}");
+                //web.Show();
             }
         }
     }
@@ -216,6 +216,7 @@ public class AddModifyViewModel : BaseViewModel, IPageViewModel
         DiscountAmt = SelectedProduct.DiscountAmt;
         CompanyText = SelectedProduct.Company.Name;
         DeptText = SelectedProduct.Department.Name;
+        Cup = SelectedProduct.Cup;
         SelectedDiscountIndex = (int)SelectedProduct.DiscountType;
     }
 

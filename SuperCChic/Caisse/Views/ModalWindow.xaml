@@ -1,0 +1,18 @@
+﻿<Window x:Class="Caisse.Views.ModalWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ept="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:vm="clr-namespace:Caisse.ViewModels"
+        d:DataContext="{d:DesignInstance vm:CaisseViewModel}"
+        xmlns:local="clr-namespace:Caisse.Views"
+        mc:Ignorable="d"
+        Title="ModalWindow" Height="450" Width="800"
+        PreviewKeyDown="Window_PreviewKeyDown"
+        Loaded="Window_Loaded">
+    <StackPanel HorizontalAlignment="Center">
+        <ept:DoubleUpDown x:Name="input" Value="{Binding CustomQuantity}" Watermark="Enter desired quantity here" Height="50" Width="300" HorizontalContentAlignment="Left"/>
+        <Button Click="Button_Click">OK</Button>
+    </StackPanel>
+</Window>
