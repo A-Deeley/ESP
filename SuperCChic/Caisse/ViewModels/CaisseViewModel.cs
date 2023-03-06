@@ -9,10 +9,11 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Caisse.ViewModels;
 
-public class CaisseViewModel : BaseViewModel, IPageViewModel
+public sealed class CaisseViewModel : BaseViewModel, IPageViewModel
 {
     private ITransactionProducts _tBuilder;
     private IPageViewModel? _pageViewModel;
@@ -41,12 +42,12 @@ public class CaisseViewModel : BaseViewModel, IPageViewModel
         get => Subtotal + TotalTps + TotalTvq;
     }
 
-    public float CustomQuantity
+    public float? CustomQuantity
     {
         get => _customQuantity;
         set
         {
-            _customQuantity = value;
+            _customQuantity = value ?? 0;
             OnPropertyChanged();
         }
     }
@@ -57,6 +58,18 @@ public class CaisseViewModel : BaseViewModel, IPageViewModel
         set
         {
             _cupInput = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private string _modalText;
+
+    public string ModalText
+    {
+        get => _modalText;
+        set
+        {
+            _modalText = value;
             OnPropertyChanged();
         }
     }
@@ -109,15 +122,24 @@ public class CaisseViewModel : BaseViewModel, IPageViewModel
 
     public string PageId { get; set; }
 
-    public CaisseViewModel()
+    private IPrinter _printer;
+
+
+    public CaisseViewModel(IPrinter printer)
+    {
+        _printer = printer;
+        NewTransaction();
+        this.PropertyChanged += OnCupInputChanged;
+    }
+
+    private void NewTransaction()
     {
         _tBuilder = TransactionBuilder.StartTransaction();
-        CustomQuantity = 1;
+        CustomQuantity = null;
         TransactionRows = new();
         CurrentPageViewModel = this;
         CustomQuantityModeEnabled = false;
         RemoveModeEnabled = false;
-        this.PropertyChanged += OnCupInputChanged;
     }
 
     private async void OnCupInputChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -132,7 +154,18 @@ public class CaisseViewModel : BaseViewModel, IPageViewModel
         CUPInput = string.Empty;
     }
 
-    private Task<bool> CupExists(string cup) => DbContext.Products.AnyAsync(prod => prod.Cup == cup);
+    private async Task<float> CupExists(string cup)
+    {
+        using (var dbContext = new A22Sda1532463Context()) {
+            var product = await dbContext.Products.FirstOrDefaultAsync(prod => prod.Cup == cup);
+            float qtyInStock = product?.Qty ?? 0;
+            float? qtyInCart = TransactionRows.Sum(row => row.Product.Cup == cup ? row.QtyUnit : 0);
+
+            return (product is not null)
+                ? qtyInStock - (float)qtyInCart
+                : -1;
+        }
+    }
 
     private async Task ExecuteCUPAction(string cup)
     {
@@ -142,19 +175,101 @@ public class CaisseViewModel : BaseViewModel, IPageViewModel
         // Totally not MVVM but yolo.
         if (CustomQuantityModeEnabled is true)
         {
-            Window modal = new ModalWindow();
-            modal.DataContext = this;
-            modal.ShowDialog();
-            modal = null;
+            DisplayQtyInputModal();
         }
-
-        if (!await searchProductTask)
-            return;
 
         if (RemoveModeEnabled is true)
             ExecuteCUPRemove(cup);
-        else
-            ExecuteCUPAdd(cup);
+
+        float qty = await searchProductTask;
+        if (qty is -1 or 0)
+        {
+            DisplayErrorModal($"Aucun stock restant pour {cup}.");
+            return;
+        }
+
+        if (CustomQuantityModeEnabled is true)
+        {
+            if (CustomQuantity > qty)
+            {
+                bool answer = DisplayYesNoModal($"Vous tentez d'ajouter {CustomQuantity}, mais il en reste seulement {qty} en stock. Désirez-vous ajouter la quantité maximale?");
+                if (answer)
+                    CustomQuantity = qty;
+            }
+
+        }
+        
+        ExecuteCUPAdd(cup);
+    }
+
+    void DisplayQtyInputModal()
+    {
+        Window modal = new ModalWindowQtyInput();
+        modal.DataContext = this;
+        modal.ShowDialog();
+        modal = null;
+    }
+
+    private bool _yesNoAnswer;
+    public bool YesNoAnswer
+    {
+        get => _yesNoAnswer;
+        set
+        {
+            _yesNoAnswer = value;
+            OnPropertyChanged();
+        }
+    }
+
+    ICommand _yesBtn;
+    ICommand _noBtn;
+    ICommand _paymentBtn;
+
+    public ICommand YesBtn
+    {
+        get => _yesBtn ??= new RelayCommand(ExecuteYesBtn);
+    }
+    public ICommand NoBtn
+    {
+        get => _noBtn ??= new RelayCommand(ExecuteNoBtn);
+    }
+    public ICommand PaymentBtn
+    {
+        get => _paymentBtn ??= new RelayCommand(ExecutePaymentBtn, CanExecutePaymentBtn);
+    }
+
+    void ExecuteYesBtn(object _) => YesNoAnswer = true;
+    void ExecuteNoBtn(object _) => YesNoAnswer = false;
+
+    void ExecutePaymentBtn(object _)
+    {
+        int finishedTransactionId = _tBuilder.CompleteTransaction();
+
+        _printer.Print(finishedTransactionId);
+    }
+
+    bool CanExecutePaymentBtn(object _) => TransactionRows.Count > 0 && TransactionRows.Sum(row => row.QtyUnit) > 0;
+
+    bool DisplayYesNoModal(string yesNoQuestion)
+    {
+        Window modal = new ModalWindowYesNo();
+        modal.DataContext = this;
+        ModalText = yesNoQuestion;
+        modal.ShowDialog();
+        modal = null;
+
+        return YesNoAnswer;
+    }
+
+    void DisplayErrorModal(string message)
+    {
+        Window modal = new ModalWindowNotEnough();
+        modal.DataContext = this;
+        // TODO: add ressource for string.
+        // TODO: add ressource for strings in the modal windows.
+        ModalText = message;
+        modal.ShowDialog();
+        modal = null;
     }
 
     private void ExecuteCUPRemove(string cup)
@@ -163,19 +278,26 @@ public class CaisseViewModel : BaseViewModel, IPageViewModel
         float totalQuantity = 0;
 
         if (!TransactionRows.Any(row => row.Product.Cup == cup))
+        {
+            // TODO: add ressource for string.
+            DisplayErrorModal("Le produit n'existe pas dans la facture.");
             return;
+        }
         else
             totalQuantity = TransactionRows.Sum(row => row.QtyUnit) ?? 0;
 
         if (totalQuantity == 0)
+        {
+            DisplayErrorModal("Le produit n'existe pas dans la facture.");
             return;
+        }
 
         if (CustomQuantityModeEnabled is true)
         {
             if (totalQuantity < CustomQuantity)
                 newRow = _tBuilder.RemoveProduct(cup, totalQuantity);
             else
-                newRow = _tBuilder.RemoveProduct(cup, CustomQuantity);
+                newRow = _tBuilder.RemoveProduct(cup, _customQuantity);
         }
         else
         {
@@ -190,11 +312,14 @@ public class CaisseViewModel : BaseViewModel, IPageViewModel
 
     private void ExecuteCUPAdd(string cup)
     {
+        if (CustomQuantity <= 0)
+            return;
+
         TransactionRow newRow = null;
         if (CustomQuantityModeEnabled is null or false)
             newRow = _tBuilder.AddProduct(cup, 1);
         else
-            newRow = _tBuilder.AddProduct(cup, CustomQuantity);
+            newRow = _tBuilder.AddProduct(cup, _customQuantity);
 
         UpdateTotals(newRow);
     }

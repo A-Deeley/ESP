@@ -13,15 +13,6 @@ namespace Backend.TransactionBuilder;
 public class TransactionBuilder : ITransactionProducts
 {
     private Transaction _currentTransaction;
-    private A22Sda1532463Context _dbContext;
-
-    private A22Sda1532463Context DbContext
-    {
-        get
-        {
-            return _dbContext ??= new();
-        }
-    }
 
     public TransactionBuilder()
     {
@@ -32,41 +23,55 @@ public class TransactionBuilder : ITransactionProducts
 
     public TransactionRow AddProduct(string cup, float quantity)
     {
-        Product p = DbContext.Products.First(prod => prod.Cup == cup);
-
-        float? discountAmtCalculated = 0f;
-
-        if (p.DiscountType == 1)
-            discountAmtCalculated = p.DiscountAmt;
-        if (p.DiscountType == 2)
-            discountAmtCalculated = p.DiscountAmt * p.Price;
-
-
-        TransactionRow newRow = new()
+        using (var dbContext = new A22Sda1532463Context())
         {
-            Transaction = _currentTransaction,
-            Product = p,
-            PriceUnit = p.Price,
-            DiscountAmtUnit = discountAmtCalculated,
-            TpsUnit = (p.ApplyTps == 1) 
-                ? p.Price * 0.05f 
-                : 0f,
-            TvqUnit = (p.ApplyTvq == 1)
-                ? p.Price * 0.09975f 
-                : 0f,
-            QtyUnit = quantity
-        };
+            Product p = dbContext.Products.First(prod => prod.Cup == cup);
 
-        _currentTransaction.TransactionRows.Add(newRow);
+            float? discountAmtCalculated = 0f;
 
-        return newRow;
+            if (p.DiscountType == 1)
+                discountAmtCalculated = p.DiscountAmt;
+            if (p.DiscountType == 2)
+                discountAmtCalculated = p.DiscountAmt * p.Price;
+
+
+            TransactionRow newRow = new()
+            {
+                Transaction = _currentTransaction,
+                Product = p,
+                PriceUnit = p.Price,
+                DiscountAmtUnit = discountAmtCalculated,
+                TpsUnit = (p.ApplyTps == 1) 
+                    ? p.Price * 0.05f 
+                    : 0f,
+                TvqUnit = (p.ApplyTvq == 1)
+                    ? p.Price * 0.09975f 
+                    : 0f,
+                QtyUnit = quantity
+            };
+
+            _currentTransaction.TransactionRows.Add(newRow);
+            return newRow;
+        }
     }
 
-    public Transaction CompleteTransaction()
+    public int CompleteTransaction()
     {
         _currentTransaction.Date = DateTime.Now;
+        using (var dbContext = new A22Sda1532463Context())
+        {
+            // Save the changes to the dbcontext
+            foreach (TransactionRow row in _currentTransaction.TransactionRows)
+            {
+                var dbProduct = dbContext.Products.Find(row.Product.Id);
+                dbProduct.Qty -= row.QtyUnit;
+            }
+            
 
-        return _currentTransaction;
+            dbContext.SaveChanges();
+
+            return dbContext.Transactions.OrderByDescending(selector => selector.Date).First().Id;
+        }
     }
 
     public List<TransactionRow> GetTransactionRows() => new(_currentTransaction.TransactionRows);

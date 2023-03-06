@@ -97,7 +97,7 @@
         <!--#region CUP input-->
         <ept:WatermarkTextBox x:Name="CUP_Input" Watermark="{x:Static resx:Resources.Caisse_CUP_Input_Watermark}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="5" Text="{Binding CUPInput, UpdateSourceTrigger=PropertyChanged}"/>
         <!--#endregion-->
-        <Button Grid.Column="3" Grid.Row="3" Style="{StaticResource ActionBtn}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="{x:Static resx:Resources.Caisse_Finish_Transaction_Btn}" Command=""/>
+        <Button Grid.Column="3" Grid.Row="3" Style="{StaticResource ActionBtn}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="{x:Static resx:Resources.Caisse_Finish_Transaction_Btn}" Command="{Binding PaymentBtn}"/>
         <!--#endregion-->
         
     </Grid>

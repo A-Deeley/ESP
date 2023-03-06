@@ -1,4 +1,5 @@
 ﻿using Backend;
+using Backend.Models;
 using Backend.ViewModels;
 using SGI.Properties;
 using System;
@@ -63,13 +64,14 @@ public class ReportViewModel : BaseViewModel, IPageViewModel
 
     public ReportViewModel()
     {
+        using var dbContext = new A22Sda1532463Context();
         _currentYearMonths = new int[currentDate.Month];
         for (int month = 1; month < currentDate.Month; month++)
             _currentYearMonths[month] = month;
 
         Title = Resources.Reports_Title;
         PageId = "reports";
-        var transactDatesAscending = DbContext.Transactions.OrderBy(tr => tr.Date);
+        var transactDatesAscending = dbContext.Transactions.OrderBy(tr => tr.Date);
         
         int firstYear = transactDatesAscending.First().Date.Year;
         int lastYear = transactDatesAscending.Last().Date.Year;

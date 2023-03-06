@@ -1,4 +1,4 @@
-﻿<Window x:Class="Caisse.Views.ModalWindow"
+﻿<Window x:Class="Caisse.Views.ModalWindowYesNo"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,11 +8,14 @@
         d:DataContext="{d:DesignInstance vm:CaisseViewModel}"
         xmlns:local="clr-namespace:Caisse.Views"
         mc:Ignorable="d"
-        Title="ModalWindow" Height="450" Width="800"
+        Title="Quantité insuffisante"
         PreviewKeyDown="Window_PreviewKeyDown"
-        Loaded="Window_Loaded">
+        SizeToContent="WidthAndHeight">
     <StackPanel HorizontalAlignment="Center">
-        <ept:DoubleUpDown x:Name="input" Value="{Binding CustomQuantity}" Watermark="Enter desired quantity here" Height="50" Width="300" HorizontalContentAlignment="Left"/>
-        <Button Click="Button_Click">OK</Button>
+        <TextBlock TextWrapping="Wrap" x:Name="label"  Height="50" Width="300" Text="{Binding ModalText}"/>
+        <StackPanel Orientation="Horizontal">
+            <Button x:Name="yes_btn" Command="{Binding NoBtn}" Click="btn_Click" Width="150">Oui</Button>
+            <Button x:Name="no_btn" Command="{Binding YesBtn}" Click="btn_Click" Width="150">Non</Button>
+        </StackPanel>
     </StackPanel>
 </Window>

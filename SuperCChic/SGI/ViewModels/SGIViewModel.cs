@@ -97,16 +97,17 @@ public class SGIViewModel : BaseViewModel, IPageViewModel
 
     public SGIViewModel()
     {
+        using var dbContext = new A22Sda1532463Context();
         Title = Resources.List_Title;
         _cachedProducts = new();
-        CurrentPageProducts = new(DbContext.Products.ToList());
+        CurrentPageProducts = new(dbContext.Products.ToList());
     }
 
     public async void RefreshProducts()
     {
+        using var dbContext = new A22Sda1532463Context();
         _cachedProducts = new();
-        DbContext = new A22Sda1532463Context();
-        CurrentPageProducts = new(DbContext.Products.ToList());
+        CurrentPageProducts = new(dbContext.Products.ToList());
         OnPropertyChanged(nameof(CurrentPageProducts));
     }
 
@@ -117,11 +118,12 @@ public class SGIViewModel : BaseViewModel, IPageViewModel
     //void ExecuteDeleteProduct(object parameter) => ViewChanged.Raise(this, "delete", SelectedProduct);
     async void ExecuteDeleteProduct(object parameter)
     {
+        using var dbContext = new A22Sda1532463Context();
         var result = MessageBox.Show($"{Resources.SGI_Delete_Msg} ({SelectedProduct.Cup}) {SelectedProduct.Name}?", "", MessageBoxButton.YesNo);
         if (result == MessageBoxResult.Yes)
         {
-            DbContext.Products.Remove(SelectedProduct);
-            await DbContext.SaveChangesAsync();
+            dbContext.Products.Remove(SelectedProduct);
+            await dbContext.SaveChangesAsync();
             RefreshProducts();
         }
     }

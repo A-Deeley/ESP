@@ -12,7 +12,7 @@ public interface ITransactionProducts
     public List<TransactionRow> GetTransactionRows();
     public TransactionRow AddProduct(string cup, float quantity);
     public TransactionRow RemoveProduct(string cup, float quantity);
-    public Transaction CompleteTransaction();
+    public int CompleteTransaction();
     public float GetSubtotalBeforeDiscounts();
     public float GetTotalDiscounts();
     public float GetTotalTps();

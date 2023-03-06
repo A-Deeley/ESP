@@ -170,11 +170,11 @@
                             </Grid.RowDefinitions>
                             
                             <Label Grid.Column="1" Style="{StaticResource Heading_2}">TPS</Label>
-                            <CheckBox Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" IsChecked="{Binding ApplyTps}"/>
+                            <CheckBox Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" IsChecked="{Binding ApplyTps,UpdateSourceTrigger=PropertyChanged}"/>
                             <Label Grid.Column="3" HorizontalAlignment="Left">(5%)</Label>
                             
                             <Label Grid.Column="1" Grid.Row="1" Style="{StaticResource Heading_2}">TVQ</Label>
-                            <CheckBox Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" IsChecked="{Binding ApplyTvq}"/>
+                            <CheckBox Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" IsChecked="{Binding ApplyTvq,UpdateSourceTrigger=PropertyChanged}"/>
                             <Label Grid.Column="3" Grid.Row="1" HorizontalAlignment="Left">(9.975%)</Label>
                         </Grid>
                     </StackPanel>

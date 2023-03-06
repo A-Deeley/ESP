@@ -1,4 +1,5 @@
-﻿using Caisse.ViewModels;
+﻿using Backend;
+using Caisse.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -19,9 +20,12 @@ namespace Caisse
     public partial class App : Application
     {
         public static IHost? AppHost { get; private set; }
+        public static IPrinter Printer { get; private set; }
 
         public App()
         {
+            Printer = new Printer();
+
             AppHost = Host.CreateDefaultBuilder()
                 .ConfigureServices((hostContext, services) =>
                 {
@@ -33,7 +37,7 @@ namespace Caisse
         {
             await AppHost!.StartAsync();
             var startupForm = AppHost.Services.GetRequiredService<Shell>();
-            startupForm!.DataContext = new CaisseViewModel();
+            startupForm!.DataContext = new CaisseViewModel(Printer);
             startupForm!.Show();
             base.OnStartup(e);
         }

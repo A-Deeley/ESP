@@ -199,12 +199,13 @@ public class AddModifyViewModel : BaseViewModel, IPageViewModel
     public string Title { get; set; }
 
     public event EventHandler<SGIEventArgs>? ViewChanged;
+    private A22Sda1532463Context dbContext;
 
     private void Init()
     {
         SelectedProduct = new Product();
-        Departements = DbContext.Departments.ToList();
-        Companies = DbContext.Companies.ToList();
+        Departements = dbContext.Departments.ToList();
+        Companies = dbContext.Companies.ToList();
     }
 
     private void Init(Product p)
@@ -222,6 +223,7 @@ public class AddModifyViewModel : BaseViewModel, IPageViewModel
 
     public AddModifyViewModel()
     {
+        dbContext = new A22Sda1532463Context();
         _originalReference = new();
         Init();
         PageId = "add";
@@ -234,7 +236,8 @@ public class AddModifyViewModel : BaseViewModel, IPageViewModel
 
     public AddModifyViewModel(Product p)
     {
-        _originalReference = p;
+        dbContext = new A22Sda1532463Context();
+        _originalReference = dbContext.Products.Find(p.Id);
         Init(p);
         PageId = "edit";
         Title = $"{Resources.Edit_Title}";
@@ -248,6 +251,7 @@ public class AddModifyViewModel : BaseViewModel, IPageViewModel
 
     public async Task CreateProduct(Product p)
     {
+        
         p.Price = (float)Price;
         p.Qty = (float)Qty;
         p.DiscountAmt = (SelectedDiscountIndex > 0)
@@ -257,28 +261,31 @@ public class AddModifyViewModel : BaseViewModel, IPageViewModel
         AssignCompany(p);
         AssignDepartment(p);
 
-        p.ApplyTps = (ApplyTps is true) ? (uint)1 : 0;
-        p.ApplyTvq = (ApplyTvq is true) ? (uint)1 : 0;
+        p.ApplyTps = SelectedProduct.ApplyTps;
+        p.ApplyTvq = SelectedProduct.ApplyTvq;
+        p.Cup = Cup;
 
-        DbContext.Products.Add(p);
-        await DbContext.SaveChangesAsync();
+        dbContext.Products.Add(p);
+        await dbContext.SaveChangesAsync();
     }
 
     public async Task UpdateProduct(Product p)
     {
+        
         p.Price = (float)Price;
         p.Qty = (float)Qty;
         p.DiscountAmt = (SelectedDiscountIndex > 0)
             ? (float)DiscountAmt
             : 0f;
 
+        p.ApplyTps = SelectedProduct.ApplyTps;
+        p.ApplyTvq = SelectedProduct.ApplyTvq;
+
         AssignCompany(p);
         AssignDepartment(p);
 
-        p.ApplyTps = (ApplyTps is true) ? (uint)1 : 0;
-        p.ApplyTvq = (ApplyTvq is true) ? (uint)1 : 0;
 
-        await DbContext.SaveChangesAsync();
+        await dbContext.SaveChangesAsync();
     }
 
     async void ExecuteCreate(object parameter)
@@ -295,7 +302,8 @@ public class AddModifyViewModel : BaseViewModel, IPageViewModel
 
     async void ExecuteUpdate(object parameter)
     {
-        Product dbContextProduct = await DbContext.Products.FindAsync(SelectedProduct.Id);
+        
+        Product dbContextProduct = await dbContext.Products.FindAsync(SelectedProduct.Id);
 
         await UpdateProduct(dbContextProduct);
 
@@ -305,7 +313,8 @@ public class AddModifyViewModel : BaseViewModel, IPageViewModel
 
     async void ExecuteUpdateAndQuit(object parameter)
     {
-        Product dbContextProduct = await DbContext.Products.FindAsync(SelectedProduct.Id);
+        
+        Product dbContextProduct = await dbContext.Products.FindAsync(SelectedProduct.Id);
 
         await UpdateProduct(dbContextProduct);
 
@@ -347,7 +356,7 @@ public class AddModifyViewModel : BaseViewModel, IPageViewModel
     bool CanExecuteCreate(object parameter)
     {
         bool textBoxesFilled =
-            !string.IsNullOrWhiteSpace(SelectedProduct.Cup) &&
+            !string.IsNullOrWhiteSpace(Cup) &&
             !string.IsNullOrWhiteSpace(SelectedProduct.Name) &&
             !string.IsNullOrWhiteSpace(SelectedProduct.UnitType);
 
@@ -359,8 +368,8 @@ public class AddModifyViewModel : BaseViewModel, IPageViewModel
             (Price is not null and >= 0) &&
             (Qty is not null and >= 0);
 
-        bool companyValid = SelectedCompanyIndex >= 0 || !Companies.Any(c => c.Name == CompanyText);
-        bool departmentValid = SelectedDepartmentIndex >= 0 || !Departements.Any(c => c.Name == DeptText);
+        bool companyValid = !string.IsNullOrWhiteSpace(CompanyText);
+        bool departmentValid = !string.IsNullOrWhiteSpace(DeptText);
 
 
         return

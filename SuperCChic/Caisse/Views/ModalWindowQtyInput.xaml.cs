@@ -17,9 +17,9 @@ namespace Caisse.Views
     /// <summary>
     /// Interaction logic for ModalWindow.xaml
     /// </summary>
-    public partial class ModalWindow : Window
+    public partial class ModalWindowQtyInput : Window
     {
-        public ModalWindow()
+        public ModalWindowQtyInput()
         {
             InitializeComponent();
         }
@@ -35,11 +35,17 @@ namespace Caisse.Views
             {
                 Close();
             }
+
+            if (e.Key is Key.Delete or Key.Back)
+            {
+                input.Value = null;
+            }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             input.Focus();
+            input.Value = null;
         }
     }
 }
