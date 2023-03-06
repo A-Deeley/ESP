@@ -1,6 +1,7 @@
 ﻿using Backend.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -44,14 +45,18 @@ namespace Backend
             var sousTotal = transaction.TransactionRows.Sum(row => row.PriceUnit * row.QtyUnit);
 
             string output = bob.Build($"SOUS-TOTAL: {sousTotal}".PadRight(27))
-               .Build($"TPS: {totalTps}")
-               .Build($"TVQ: {totalTvq}")
-               .Build("------".PadLeft(27))
+               .Build($"TPS: {totalTps:C2}")
+               .Build($"TVQ: {totalTvq:C2}")
+               .Build("----------------------------")
                .Build($"{transaction.GetQtyArticles()} Article(s)")
-               .Build($"Total: {sousTotal + totalTps + totalTvq}")
+               .Build($"Total: {sousTotal + totalTps + totalTvq:C2}")
+               .Build("===========================")
                .AdmireYourWork();
 
-            File.WriteAllText(@$"./Factures/{transaction.Id}.txt", output);
+            string facturePath = @$"./Factures/{transaction.Id}.txt";
+            File.WriteAllText(facturePath, output);
+
+            Process.Start("notepad.exe" ,facturePath);
         }
     }
 

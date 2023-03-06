@@ -39,16 +39,24 @@ public partial class TransactionRow
     {
         get
         {
-            int length = Product?.Name.Length ?? 0;
-            string productName = Product?.Name ?? "";
-            if (length > 15)
-                productName = $"{productName[..length]}...";
+            using (var dbContext = new A22Sda1532463Context())
+            {
+                Product p = dbContext.Products.Find(ProductId);
 
-            string text = $"{productName} | {QtyUnit} @ {PriceUnit:C2}";
-            if (DiscountAmtUnit > 0)
-                text = $"{productName} | {QtyUnit} @ {PriceUnit:C2} (-${Math.Round(DiscountAmtUnit ?? 0, 2, MidpointRounding.AwayFromZero):C2})";
+                if (p is null)
+                    return string.Empty;
 
-            return text;
+                int length = p.Name.Length;
+                string productName = p.Name;
+                if (length > 15)
+                    productName = $"{productName[..length]}...";
+
+                string text = $"{productName} | {QtyUnit} @ {PriceUnit:C2}";
+                if (DiscountAmtUnit > 0)
+                    text = $"{productName} | {QtyUnit} @ {PriceUnit:C2} (-${Math.Round(DiscountAmtUnit ?? 0, 2, MidpointRounding.AwayFromZero):C2})";
+
+                return text;
+            }
         }
     }
 }
