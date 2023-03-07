@@ -25,7 +25,10 @@ public class TransactionBuilder : ITransactionProducts
     {
         using (var dbContext = new A22Sda1532463Context())
         {
-            Product p = dbContext.Products.First(prod => prod.Cup == cup);
+            Product? p = _currentTransaction.TransactionRows.FirstOrDefault(row => row.Product?.Cup == cup)?.Product;
+
+            if (p is null)
+                p = dbContext.Products.First(prod => prod.Cup == cup);
 
             float? discountAmtCalculated = 0f;
 
@@ -38,7 +41,7 @@ public class TransactionBuilder : ITransactionProducts
             TransactionRow newRow = new()
             {
                 Transaction = _currentTransaction,
-                Product = p,
+                ProductId = p.Id,
                 PriceUnit = p.Price,
                 DiscountAmtUnit = discountAmtCalculated,
                 TpsUnit = (p.ApplyTps == 1) 
@@ -63,13 +66,16 @@ public class TransactionBuilder : ITransactionProducts
             // Save the changes to the dbcontext
             foreach (TransactionRow row in _currentTransaction.TransactionRows)
             {
-                var dbProduct = dbContext.Products.Find(row.Product.Id);
+                var dbProduct = dbContext.Products.Find(row.ProductId);
                 dbProduct.Qty -= row.QtyUnit;
+                dbContext.SaveChanges();
             }
-            
 
+            dbContext.ChangeTracker.Clear();
+            dbContext.Transactions.Add(_currentTransaction);
             dbContext.SaveChanges();
 
+            dbContext.ChangeTracker.Clear();
             return dbContext.Transactions.OrderByDescending(selector => selector.Date).First().Id;
         }
     }
@@ -82,6 +88,7 @@ public class TransactionBuilder : ITransactionProducts
     {
         float subTotal = 0;
 
+
         foreach (TransactionRow row in _currentTransaction.TransactionRows)
             subTotal += (float)(row.PriceUnit * row.QtyUnit);
 
@@ -91,22 +98,33 @@ public class TransactionBuilder : ITransactionProducts
     public float GetTotalTps()
     {
         float taxableSubtotal = 0;
+        using (var dbContext = new A22Sda1532463Context())
+        {
+            foreach (TransactionRow row in _currentTransaction.TransactionRows)
+            {
+                Product product = dbContext.Products.Find(row.ProductId);
+                if (product?.ApplyTps == 1)
+                    taxableSubtotal += (float)(row.PriceUnit * row.QtyUnit * 0.05);
 
-        foreach (TransactionRow row in _currentTransaction.TransactionRows)
-            if (row.Product.ApplyTps == 1)
-                taxableSubtotal += (float)(row.PriceUnit * row.QtyUnit * 0.05);
+            }
 
-        return taxableSubtotal;
+            return taxableSubtotal;
+        }
     }
 
     public float GetTotalTvq()
     {
         float taxableSubtotal = 0;
 
-        foreach (TransactionRow row in _currentTransaction.TransactionRows)
-            if (row.Product.ApplyTvq == 1)
-                taxableSubtotal += (float)(row.PriceUnit * row.QtyUnit * 0.09975);
-
+        using (var dbContext = new A22Sda1532463Context())
+        {
+            foreach (TransactionRow row in _currentTransaction.TransactionRows)
+            {
+                Product product = dbContext.Products.Find(row.ProductId);
+                if (product?.ApplyTvq == 1)
+                    taxableSubtotal += (float)(row.PriceUnit * row.QtyUnit * 0.09975);
+            }
+        }
         return taxableSubtotal;
     }
 

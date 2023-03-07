@@ -137,6 +137,7 @@ public sealed class CaisseViewModel : BaseViewModel, IPageViewModel
         _tBuilder = TransactionBuilder.StartTransaction();
         CustomQuantity = null;
         TransactionRows = new();
+        UpdateTotals();
         CurrentPageViewModel = this;
         CustomQuantityModeEnabled = false;
         RemoveModeEnabled = false;
@@ -159,7 +160,7 @@ public sealed class CaisseViewModel : BaseViewModel, IPageViewModel
         using (var dbContext = new A22Sda1532463Context()) {
             var product = await dbContext.Products.FirstOrDefaultAsync(prod => prod.Cup == cup);
             float qtyInStock = product?.Qty ?? 0;
-            float? qtyInCart = TransactionRows.Sum(row => row.Product.Cup == cup ? row.QtyUnit : 0);
+            float? qtyInCart = 1; //TransactionRows.Sum(row => row.Product.Cup == cup ? row.QtyUnit : 0);
 
             return (product is not null)
                 ? qtyInStock - (float)qtyInCart
@@ -261,6 +262,8 @@ public sealed class CaisseViewModel : BaseViewModel, IPageViewModel
         int finishedTransactionId = _tBuilder.CompleteTransaction();
 
         _printer.Print(finishedTransactionId);
+
+        NewTransaction();
     }
 
     bool CanExecutePaymentBtn(object _) => TransactionRows.Count > 0 && TransactionRows.Sum(row => row.QtyUnit) > 0;
@@ -290,39 +293,43 @@ public sealed class CaisseViewModel : BaseViewModel, IPageViewModel
     private void ExecuteCUPRemove(string cup)
     {
         TransactionRow newRow = null;
-        float totalQuantity = 0;
-
-        if (!TransactionRows.Any(row => row.Product.Cup == cup))
+        using (var dbContext = new A22Sda1532463Context())
         {
-            // TODO: add ressource for string.
-            DisplayErrorModal("Le produit n'existe pas dans la facture.");
-            return;
-        }
-        else
-            totalQuantity = TransactionRows.Sum(row => row.QtyUnit) ?? 0;
+            float totalQuantity = 0;
+            int productId = dbContext.Products.First(p => p.Cup == cup).Id;
 
-        if (totalQuantity == 0)
-        {
-            DisplayErrorModal("Le produit n'existe pas dans la facture.");
-            return;
-        }
-
-        if (CustomQuantityModeEnabled is true)
-        {
-            if (totalQuantity < CustomQuantity)
-                newRow = _tBuilder.RemoveProduct(cup, totalQuantity);
+            if (!TransactionRows.Any(row => row.ProductId == productId))
+            {
+                // TODO: add ressource for string.
+                DisplayErrorModal("Le produit n'existe pas dans la facture.");
+                return;
+            }
             else
-                newRow = _tBuilder.RemoveProduct(cup, _customQuantity);
-        }
-        else
-        {
-            if (totalQuantity < 1)
-                newRow = _tBuilder.RemoveProduct(cup, totalQuantity);
-            else
-                newRow = _tBuilder.RemoveProduct(cup, 1);
-        }
+                totalQuantity = TransactionRows.Sum(row => row.QtyUnit) ?? 0;
 
-        UpdateTotals(newRow);
+            if (totalQuantity == 0)
+            {
+                DisplayErrorModal("Le produit n'existe pas dans la facture.");
+                return;
+            }
+
+            if (CustomQuantityModeEnabled is true)
+            {
+                if (totalQuantity < CustomQuantity)
+                    newRow = _tBuilder.RemoveProduct(cup, totalQuantity);
+                else
+                    newRow = _tBuilder.RemoveProduct(cup, _customQuantity);
+            }
+            else
+            {
+                if (totalQuantity < 1)
+                    newRow = _tBuilder.RemoveProduct(cup, totalQuantity);
+                else
+                    newRow = _tBuilder.RemoveProduct(cup, 1);
+            }
+
+            UpdateTotals(newRow);
+        }
     }
 
     private void ExecuteCUPAdd(string cup)
@@ -344,6 +351,15 @@ public sealed class CaisseViewModel : BaseViewModel, IPageViewModel
         // Force the list display to update.
         TransactionRows.Add(newRow);
 
+        OnPropertyChanged(nameof(Subtotal));
+        OnPropertyChanged(nameof(Total));
+        OnPropertyChanged(nameof(TotalTps));
+        OnPropertyChanged(nameof(TotalTvq));
+    }
+
+    private void UpdateTotals()
+    {
+        OnPropertyChanged(nameof(TransactionRows));
         OnPropertyChanged(nameof(Subtotal));
         OnPropertyChanged(nameof(Total));
         OnPropertyChanged(nameof(TotalTps));
