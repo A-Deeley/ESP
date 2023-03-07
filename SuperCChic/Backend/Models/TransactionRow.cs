@@ -50,8 +50,7 @@ public partial class TransactionRow
             if (DiscountAmtUnit > 0)
                 text = $"{productName} | {QtyUnit,3} @ {PriceUnit:C2} (-${Math.Round(DiscountAmtUnit ?? 0, 2, MidpointRounding.AwayFromZero):C2})";
 
-                return text;
-            }
+            return text;
         }
     }
 }
