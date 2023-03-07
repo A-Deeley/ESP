@@ -179,7 +179,10 @@ public sealed class CaisseViewModel : BaseViewModel, IPageViewModel
         }
 
         if (RemoveModeEnabled is true)
+        {
             ExecuteCUPRemove(cup);
+            return;
+        }
 
         float qty = await searchProductTask;
         if (qty is -1 or 0)
@@ -238,8 +241,20 @@ public sealed class CaisseViewModel : BaseViewModel, IPageViewModel
         get => _paymentBtn ??= new RelayCommand(ExecutePaymentBtn, CanExecutePaymentBtn);
     }
 
+    ICommand _cancelPaymentBtn;
+
+    public ICommand CancelPaymentBtn
+    {
+        get => _cancelPaymentBtn ??= new RelayCommand(ExecuteCancelPaymentBtn, (_) => TransactionRows.Count > 0);
+    }
+
     void ExecuteYesBtn(object _) => YesNoAnswer = true;
     void ExecuteNoBtn(object _) => YesNoAnswer = false;
+
+    void ExecuteCancelPaymentBtn(object _)
+    {
+        NewTransaction();
+    }
 
     void ExecutePaymentBtn(object _)
     {

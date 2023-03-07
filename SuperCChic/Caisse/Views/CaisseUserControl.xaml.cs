@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using System.Windows.Media;
 using Xceed.Wpf.Toolkit;
 
 namespace Caisse.Views;
@@ -19,6 +20,7 @@ public partial class CaisseUserControl : UserControl
     public CaisseUserControl()
     {
         InitializeComponent();
+        FontFamily = new FontFamily("Courrier New");
     }
 
 

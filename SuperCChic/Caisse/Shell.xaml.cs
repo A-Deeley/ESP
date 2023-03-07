@@ -22,6 +22,7 @@ namespace Caisse
         public Shell()
         {
             InitializeComponent();
+            FontFamily = new FontFamily("Courrier New");
         }
     }
 }

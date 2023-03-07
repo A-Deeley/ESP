@@ -5,6 +5,10 @@
              xmlns:views="clr-namespace:Caisse.Views"
              xmlns:local="clr-namespace:Caisse">
     <Application.Resources>
+        <Style x:Key="WindowFont" TargetType="Window">
+            <Setter Property="FontFamily" Value="Courrier New"/>
+        </Style>
+        
         <!--#region Switch Style ToggleButton (IT.Delinquent)-->
         <!--
                                         ToggleButton style source

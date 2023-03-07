@@ -46,7 +46,7 @@ namespace Backend
             string output = bob.Build($"SOUS-TOTAL: {sousTotal}".PadRight(27))
                .Build($"TPS: {totalTps}")
                .Build($"TVQ: {totalTvq}")
-               .Build("------".PadLeft(27))
+               .Build("-----------------------------")
                .Build($"{transaction.GetQtyArticles()} Article(s)")
                .Build($"Total: {sousTotal + totalTps + totalTvq}")
                .AdmireYourWork();

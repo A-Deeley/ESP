@@ -42,11 +42,13 @@ public partial class TransactionRow
             int length = Product?.Name.Length ?? 0;
             string productName = Product?.Name ?? "";
             if (length > 15)
-                productName = $"{productName[..length]}...";
+                productName = $"{productName[..15]}...";
+            else
+                productName = productName.PadRight(18);
 
-            string text = $"{productName} | {QtyUnit} @ {PriceUnit:C2}";
+            string text = $"{productName} | {QtyUnit,3} @ {PriceUnit:C2}";
             if (DiscountAmtUnit > 0)
-                text = $"{productName} | {QtyUnit} @ {PriceUnit:C2} (-${Math.Round(DiscountAmtUnit ?? 0, 2, MidpointRounding.AwayFromZero):C2})";
+                text = $"{productName} | {QtyUnit,3} @ {PriceUnit:C2} (-${Math.Round(DiscountAmtUnit ?? 0, 2, MidpointRounding.AwayFromZero):C2})";
 
             return text;
         }

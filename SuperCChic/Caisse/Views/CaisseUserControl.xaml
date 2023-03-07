@@ -31,7 +31,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <!--#region Transaction Rows-->
-        <DataGrid FontSize="16px" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="5" AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding TransactionRows}" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
+        <DataGrid FontSize="16px" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="5" AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding TransactionRows}" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" FontFamily="Courier New">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{x:Static resx:Resources.Caisse_Product_Name_Header}" Width="3*" Binding="{Binding TextCaisse}"/>
                 <DataGridTextColumn Header="{x:Static resx:Resources.Caisse_Product_Price_Subtotal}" Width="*" Binding="{Binding Subtotal, Converter={StaticResource dollarSignConverter}}"/>
@@ -97,7 +97,10 @@
         <!--#region CUP input-->
         <ept:WatermarkTextBox x:Name="CUP_Input" Watermark="{x:Static resx:Resources.Caisse_CUP_Input_Watermark}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="5" Text="{Binding CUPInput, UpdateSourceTrigger=PropertyChanged}"/>
         <!--#endregion-->
-        <Button Grid.Column="3" Grid.Row="3" Style="{StaticResource ActionBtn}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="{x:Static resx:Resources.Caisse_Finish_Transaction_Btn}" Command="{Binding PaymentBtn}"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Right">
+            <Button Style="{StaticResource ActionBtn}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="Annuler" Background="Red" Command="{Binding CancelPaymentBtn}"/>
+            <Button Style="{StaticResource ActionBtn}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="{x:Static resx:Resources.Caisse_Finish_Transaction_Btn}" Background="Green" Command="{Binding PaymentBtn}"/>
+        </StackPanel>
         <!--#endregion-->
         
     </Grid>
