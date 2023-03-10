@@ -37,7 +37,7 @@ namespace Backend
                 bob.Build(dept.Name);
 
                 foreach (TransactionRow groupRow in deptGroup)
-                    bob.Build($"\t{groupRow.TextCaisse}");
+                    bob.Build($"  {groupRow.TextCaisse}");
             }
 
             var totalTps = transaction.TransactionRows.Sum(row => row.TpsUnit * row.QtyUnit);

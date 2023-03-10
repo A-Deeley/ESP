@@ -5,15 +5,61 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SGI.Views"
              xmlns:vm="clr-namespace:SGI.ViewModels"
+             xmlns:conv="clr-namespace:SGI.ValueConverters"
              d:DataContext="{d:DesignInstance vm:ReportViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <conv:DisplayDollarSignConverter x:Key="dollarSignConverter" />
+    </UserControl.Resources>
     <StackPanel>
-        <WrapPanel Orientation="Horizontal">
-            <Label>Year: </Label>
+        <Button Margin="5"  Width="100px" HorizontalAlignment="Left" Command="{Binding Previous}">Retour au SGI</Button>
+        <WrapPanel Orientation="Horizontal" Margin="5">
+            <Label>Année:</Label>
             <ComboBox ItemsSource="{Binding Years}" SelectedIndex="{Binding SelectedYearIndex}"/>
-            <Label>Month: </Label>
+            <Label>Mois:</Label>
             <ComboBox ItemsSource="{Binding Months}" SelectedIndex="{Binding SelectedMonthIndex}"/>
         </WrapPanel>
+        <GroupBox Header="{Binding GroupBoxTitle}" Margin="5">
+            <StackPanel>
+                <Grid Margin="5">
+                    <Grid.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                        </Style>
+                    </Grid.Resources>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Rectangle Grid.Row="0" Grid.Column="0" Stroke="Black" Fill="Transparent"/>
+                    <Rectangle Grid.Row="0" Grid.Column="1" Stroke="Black" Fill="Transparent"/>
+                    <Rectangle Grid.Row="0" Grid.Column="2" Stroke="Black" Fill="Transparent"/>
+                    <Rectangle Grid.Row="1" Grid.Column="0" Stroke="Black" Fill="Transparent"/>
+                    <Rectangle Grid.Row="1" Grid.Column="1" Stroke="Black" Fill="Transparent"/>
+                    <Rectangle Grid.Row="1" Grid.Column="2" Stroke="Black" Fill="Transparent"/>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Nb. de transactions"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="Somme des ventes"/>
+                    <TextBlock Grid.Row="0" Grid.Column="2" Text="Valeur moyenne des transactions"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding TransactionCountMonth}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding SalesSumMonth, Converter={StaticResource dollarSignConverter}}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding AvgTransactionValueMonth, Converter={StaticResource dollarSignConverter}}"/>
+                </Grid>
+                <ListView Margin="5" ItemsSource="{Binding AvgSalePerDayInMonth}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Jour du mois" Width="295px" DisplayMemberBinding="{Binding Key}"/>
+                            <GridViewColumn Header="Moyenne des ventes" Width="295px" DisplayMemberBinding="{Binding Value, Converter={StaticResource dollarSignConverter}}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+            </StackPanel>
+        </GroupBox>
     </StackPanel>
 </UserControl>

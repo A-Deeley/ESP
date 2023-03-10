@@ -37,7 +37,7 @@ public class SGIViewModel : BaseViewModel, IPageViewModel
     {
         get
         {
-            return _reports ??= new RelayCommand(ExecuteReportsView, (p) => false);
+            return _reports ??= new RelayCommand(ExecuteReportsView);
         }
     }
 

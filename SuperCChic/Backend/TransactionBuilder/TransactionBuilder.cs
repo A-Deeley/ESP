@@ -33,9 +33,9 @@ public class TransactionBuilder : ITransactionProducts
             float? discountAmtCalculated = 0f;
 
             if (p.DiscountType == 1)
-                discountAmtCalculated = p.DiscountAmt;
-            if (p.DiscountType == 2)
                 discountAmtCalculated = p.DiscountAmt * p.Price;
+            if (p.DiscountType == 2)
+                discountAmtCalculated = p.DiscountAmt;
 
 
             TransactionRow newRow = new()

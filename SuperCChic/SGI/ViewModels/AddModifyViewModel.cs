@@ -95,7 +95,7 @@ public class AddModifyViewModel : BaseViewModel, IPageViewModel
 
     public double? Price
     {
-        get => _price;
+        get => Math.Round(_price, 2);
         set
         {
             _price = value ?? 0;
@@ -105,7 +105,7 @@ public class AddModifyViewModel : BaseViewModel, IPageViewModel
 
     public double? Qty
     {
-        get => _qty;
+        get => Math.Round(_qty, 2);
         set
         {
             _qty = value ?? 0;
@@ -254,6 +254,7 @@ public class AddModifyViewModel : BaseViewModel, IPageViewModel
         
         p.Price = (float)Price;
         p.Qty = (float)Qty;
+        p.DiscountType = (ulong)SelectedDiscountIndex;
         p.DiscountAmt = (SelectedDiscountIndex > 0)
             ? (float)DiscountAmt
             : 0f;
@@ -274,6 +275,7 @@ public class AddModifyViewModel : BaseViewModel, IPageViewModel
         
         p.Price = (float)Price;
         p.Qty = (float)Qty;
+        p.DiscountType = (ulong)SelectedDiscountIndex;
         p.DiscountAmt = (SelectedDiscountIndex > 0)
             ? (float)DiscountAmt
             : 0f;
@@ -292,6 +294,8 @@ public class AddModifyViewModel : BaseViewModel, IPageViewModel
     {
         await CreateProduct(SelectedProduct);
         CommandManager.InvalidateRequerySuggested();
+        MessageBox.Show("Produit crée avec succès!", "Création", MessageBoxButton.OK);
+        Init();
     }
 
     async void ExecuteCreateAndQuit(object parameter)
@@ -309,6 +313,8 @@ public class AddModifyViewModel : BaseViewModel, IPageViewModel
 
         _originalReference = dbContextProduct;
         CommandManager.InvalidateRequerySuggested();
+        MessageBox.Show("Produit mis à jour!", "Mise à jour", MessageBoxButton.OK);
+        Init(SelectedProduct);
     }
 
     async void ExecuteUpdateAndQuit(object parameter)
@@ -348,10 +354,13 @@ public class AddModifyViewModel : BaseViewModel, IPageViewModel
 
     void ExecuteReset(object parameter)
     {
-        Init(_originalReference);
+        if (_originalReference is null)
+            Init();
+        else
+            Init(_originalReference);
     }
 
-    bool CanExecuteReset(object parameter) => false;
+    bool CanExecuteReset(object parameter) => true;
 
     bool CanExecuteCreate(object parameter)
     {

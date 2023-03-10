@@ -17,4 +17,6 @@ public partial class Transaction
 
         return articles.Count();
     }
+
+    public float GetSumOfSale() => TransactionRows.Sum(row => row.Subtotal + ((row.TpsUnit + row.TvqUnit) * row.QtyUnit)) ?? 0;
 }

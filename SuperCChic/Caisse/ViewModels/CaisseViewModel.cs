@@ -160,7 +160,7 @@ public sealed class CaisseViewModel : BaseViewModel, IPageViewModel
         using (var dbContext = new A22Sda1532463Context()) {
             var product = await dbContext.Products.FirstOrDefaultAsync(prod => prod.Cup == cup);
             float qtyInStock = product?.Qty ?? 0;
-            float? qtyInCart = 1; //TransactionRows.Sum(row => row.Product.Cup == cup ? row.QtyUnit : 0);
+            float? qtyInCart = TransactionRows.Sum(row => row.Product.Cup == cup ? row.QtyUnit : 0);
 
             return (product is not null)
                 ? qtyInStock - (float)qtyInCart

@@ -7,11 +7,13 @@
              xmlns:fa="http://schemas.fontawesome.io/icons/"
              xmlns:local="clr-namespace:SGI.ViewModels"
              xmlns:cc="clr-namespace:SGI.Views.UserControls"
+             xmlns:conv="clr-namespace:SGI.ValueConverters"
              xmlns:ept="http://schemas.xceed.com/wpf/xaml/toolkit"
              d:DataContext="{d:DesignInstance local:AddModifyViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="600">
     <UserControl.Resources>
+        <conv:DisplayDollarSignConverter x:Key="dollarSignConverter" />
         <!--#region Title Styles-->
         <Style x:Key="Title" TargetType="Label">
             <Setter Property="FontSize" Value="20"/>
