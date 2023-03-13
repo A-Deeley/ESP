@@ -134,13 +134,16 @@ public sealed class CaisseViewModel : BaseViewModel, IPageViewModel
 
     private void NewTransaction()
     {
-        _tBuilder = TransactionBuilder.StartTransaction();
-        CustomQuantity = null;
-        TransactionRows = new();
-        UpdateTotals();
-        CurrentPageViewModel = this;
-        CustomQuantityModeEnabled = false;
-        RemoveModeEnabled = false;
+        using (var context = new A22Sda1532463Context())
+        {
+            _tBuilder = TransactionBuilder.StartTransaction(context);
+            CustomQuantity = null;
+            TransactionRows = new();
+            UpdateTotals();
+            CurrentPageViewModel = this;
+            CustomQuantityModeEnabled = false;
+            RemoveModeEnabled = false;
+        }
     }
 
     private async void OnCupInputChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -157,7 +160,8 @@ public sealed class CaisseViewModel : BaseViewModel, IPageViewModel
 
     private async Task<float> CupExists(string cup)
     {
-        using (var dbContext = new A22Sda1532463Context()) {
+        using (var dbContext = new A22Sda1532463Context())
+        {
             var product = await dbContext.Products.FirstOrDefaultAsync(prod => prod.Cup == cup);
             float qtyInStock = product?.Qty ?? 0;
             float? qtyInCart = TransactionRows.Sum(row => row.Product.Cup == cup ? row.QtyUnit : 0);
@@ -202,7 +206,7 @@ public sealed class CaisseViewModel : BaseViewModel, IPageViewModel
             }
 
         }
-        
+
         ExecuteCUPAdd(cup);
     }
 

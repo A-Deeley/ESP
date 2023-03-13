@@ -12,6 +12,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caisse", "Caisse\Caisse.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SGI", "SGI\SGI.csproj", "{B17F97DB-1482-407D-82C0-B92EF41016BA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESP_Test", "ESP_Test\ESP_Test.csproj", "{E0552F0C-D51A-4340-8712-EF1B09D60FD7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,10 @@ Global
 		{B17F97DB-1482-407D-82C0-B92EF41016BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B17F97DB-1482-407D-82C0-B92EF41016BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B17F97DB-1482-407D-82C0-B92EF41016BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0552F0C-D51A-4340-8712-EF1B09D60FD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0552F0C-D51A-4340-8712-EF1B09D60FD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0552F0C-D51A-4340-8712-EF1B09D60FD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0552F0C-D51A-4340-8712-EF1B09D60FD7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

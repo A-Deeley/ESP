@@ -21,7 +21,11 @@
             <ComboBox ItemsSource="{Binding Months}" SelectedIndex="{Binding SelectedMonthIndex}"/>
         </WrapPanel>
         <GroupBox Header="{Binding GroupBoxTitle}" Margin="5">
-            <StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
                 <Grid Margin="5">
                     <Grid.Resources>
                         <Style TargetType="TextBlock">
@@ -50,7 +54,7 @@
                     <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding SalesSumMonth, Converter={StaticResource dollarSignConverter}}"/>
                     <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding AvgTransactionValueMonth, Converter={StaticResource dollarSignConverter}}"/>
                 </Grid>
-                <ListView Margin="5" ItemsSource="{Binding AvgSalePerDayInMonth}">
+                <ListView Margin="5" ItemsSource="{Binding AvgSalePerDayInMonth}" Grid.Row="1">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Jour du mois" Width="295px" DisplayMemberBinding="{Binding Key}"/>
@@ -59,7 +63,7 @@
                     </ListView.View>
                 </ListView>
 
-            </StackPanel>
+            </Grid>
         </GroupBox>
     </StackPanel>
 </UserControl>

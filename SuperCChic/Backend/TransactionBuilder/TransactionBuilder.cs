@@ -1,61 +1,52 @@
 ﻿using Backend.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Printing;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Navigation;
 
 namespace Backend.TransactionBuilder;
 
 public class TransactionBuilder : ITransactionProducts
 {
     private Transaction _currentTransaction;
+    private A22Sda1532463Context _context;
 
-    public TransactionBuilder()
+    public TransactionBuilder(A22Sda1532463Context dbProvider)
     {
         _currentTransaction = new();
+        _context = dbProvider;
     }
 
-    public static ITransactionProducts StartTransaction() => new TransactionBuilder();
+    public static ITransactionProducts StartTransaction(A22Sda1532463Context context) => new TransactionBuilder(context);
 
     public TransactionRow AddProduct(string cup, float quantity)
     {
-        using (var dbContext = new A22Sda1532463Context())
+        Product? p = _currentTransaction.TransactionRows.FirstOrDefault(row => row.Product?.Cup == cup)?.Product;
+
+        if (p is null)
+            p = _context.Products.First(prod => prod.Cup == cup);
+
+        float? discountAmtCalculated = 0f;
+
+        if (p.DiscountType == 1)
+            discountAmtCalculated = p.DiscountAmt * p.Price;
+        if (p.DiscountType == 2)
+            discountAmtCalculated = p.DiscountAmt;
+
+
+        TransactionRow newRow = new()
         {
-            Product? p = _currentTransaction.TransactionRows.FirstOrDefault(row => row.Product?.Cup == cup)?.Product;
+            Transaction = _currentTransaction,
+            ProductId = p.Id,
+            PriceUnit = p.Price,
+            DiscountAmtUnit = discountAmtCalculated,
+            TpsUnit = (p.ApplyTps == 1)
+                ? p.Price * 0.05f
+                : 0f,
+            TvqUnit = (p.ApplyTvq == 1)
+                ? p.Price * 0.09975f
+                : 0f,
+            QtyUnit = quantity
+        };
 
-            if (p is null)
-                p = dbContext.Products.First(prod => prod.Cup == cup);
-
-            float? discountAmtCalculated = 0f;
-
-            if (p.DiscountType == 1)
-                discountAmtCalculated = p.DiscountAmt * p.Price;
-            if (p.DiscountType == 2)
-                discountAmtCalculated = p.DiscountAmt;
-
-
-            TransactionRow newRow = new()
-            {
-                Transaction = _currentTransaction,
-                ProductId = p.Id,
-                PriceUnit = p.Price,
-                DiscountAmtUnit = discountAmtCalculated,
-                TpsUnit = (p.ApplyTps == 1) 
-                    ? p.Price * 0.05f 
-                    : 0f,
-                TvqUnit = (p.ApplyTvq == 1)
-                    ? p.Price * 0.09975f 
-                    : 0f,
-                QtyUnit = quantity
-            };
-
-            _currentTransaction.TransactionRows.Add(newRow);
-            return newRow;
-        }
+        _currentTransaction.TransactionRows.Add(newRow);
+        return newRow;
     }
 
     public int CompleteTransaction()
